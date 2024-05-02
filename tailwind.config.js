@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage:{
+        'hero-bg' : "linear-gradient(120deg, rgba(255,255,255,1) 50%, rgba(221,221,221,1) 50%)"
+      }
+    },
     container: {
       padding: {
         DEFAULT: '1rem',

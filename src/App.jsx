@@ -1,18 +1,21 @@
-import { Navigate, Route, Routes } from "react-router-dom"
-import Login from "./components/Login"
-import Register from "./components/Register"
+import { Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import Header from "./components/Header";
 
 function App() {
-
   return (
     <>
-    <Routes>
-      <Route path="/" element={<Navigate to={"login"}/>} />
-      <Route path="login" element={<Login/>} />
-      <Route path="register" element={<Register/>} />
-    </Routes>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

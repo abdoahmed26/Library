@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import img1 from "./images/work-steps.png"
+import img1 from "../assets/images/work-steps.png"
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,7 +24,6 @@ const Register = () => {
     return (
         <div className="flex justify-center py-5">
             <div className="container">
-                <h1 className="text-4xl font-bold">Library</h1>
                 <div className="flex items-center justify-center w-full gap-16 mt-5">
                     <div className="w-[500px] shadow-xl shadow-slate-400 bg-white rounded-md p-5 px-10">
                         <h2 className="text-3xl font-bold text-center">Sign up</h2>
