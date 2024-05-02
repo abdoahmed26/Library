@@ -21,7 +21,7 @@ const Login = () => {
         });
     }
     return (
-        <div className="flex items-center justify-center py-5 h-[100vh]">
+        <div className="flex justify-center py-5 h-[100vh]">
             <div className="container">
                 <div className="flex items-center justify-center w-full gap-16 mt-5">
                     <div className="w-[500px] shadow-xl shadow-slate-400 bg-white rounded-md p-5 px-10">
