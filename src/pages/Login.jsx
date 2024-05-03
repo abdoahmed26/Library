@@ -2,9 +2,10 @@ import { useForm } from "react-hook-form";
 import img1 from "../assets/images/work-steps.png"
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const myUrl = useNavigate();
     const [load,setLoad] = useState(false);
     const {register,handleSubmit,formState:{ errors }} = useForm();
     const onSubmit = (data) => {
@@ -14,6 +15,8 @@ const Login = () => {
         .then((res)=>{
             console.log(res.data.data.token);
             localStorage.token = res.data.data.token;
+            myUrl("/")
+            window.location.reload();
             setLoad(false);
         }).catch(()=>{
             setLoad(false);

@@ -35,7 +35,7 @@ const MyStore = () => {
                                 data.data.map((ele)=>{
                                     return ele.title.toLowerCase().includes(search.toLowerCase()) ? 
                                         <div key={ele.id} className="text-center bg-gray-100 shadow-lg rounded-md pb-2">
-                                            <img src={ defaultImage} alt={ele.name} className="w-full rounded-t-md"/>
+                                            <img src={ defaultImage} alt={ele.title} className="w-full rounded-t-md"/>
                                             <div className="px-3">
                                                 <h1 className="font-bold text-lg">{ele.title.slice(0,10)}</h1>
                                                 <p className="text-gray-500 font-bold text-sm my-2 break-words">{ele.description.slice(0,80)}</p>

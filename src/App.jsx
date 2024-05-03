@@ -4,6 +4,8 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import MyStore from "./pages/myStore";
+import Cart from "./pages/Cart";
+import SaveRoute from "./pages/SaveRoute";
 
 function App() {
   return (
@@ -13,7 +15,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="store" element={<MyStore />} />
+        <Route element={<SaveRoute />}> 
+          <Route path="store" element={<MyStore />} />
+          <Route path="cart" element={<Cart />} />
+        </Route>
       </Routes>
     </>
   );

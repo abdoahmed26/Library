@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { FaSignInAlt } from "react-icons/fa";
+import { FaSignInAlt, FaUser } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
 
 function Header() {
   return (
@@ -16,8 +17,20 @@ function Header() {
         </ul>
       </nav>
         <div className="font-semibold capitalize flex items-center">
-            <Link to={'/login'} className="inline-block text-[26px] "><FaSignInAlt/></Link>
-            <Link to={'/register'} className="bg-black text-white py-1 px-2 rounded-xl ml-3">signUp</Link>
+          {
+            localStorage.token ?
+            <>
+              <Link to={'/cart'} className="inline-block text-[26px] mr-5"><FaCartShopping/></Link>
+              <Link to={'/profile'} className="flex flex-col justify-center text-black">
+                <FaUser className="text-[20px] mx-auto"/>
+                <span>name</span>
+              </Link>
+            </>
+            : <>
+              <Link to={'/login'} className="inline-block text-[26px] "><FaSignInAlt/></Link>
+              <Link to={'/register'} className="bg-black text-white py-1 px-2 rounded-xl ml-3">signUp</Link>
+            </>
+          }
         </div>
       </div>
     </header>
