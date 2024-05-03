@@ -7,18 +7,29 @@ export default function FeaturedCategories() {
   console.log(data, error, isLoading);
   return (
     <div className="container m-auto">
-      <h2 className="text-center text-3xl mb-10 font-bold">Featured Categories</h2>
-        {isLoading
-          ? <div className="flex justify-center">
-              <span className="inline-block w-7 h-7 border-2 border-black border-l-gray-500 rounded-full animate-spin"></span>
-            </div>
-          : <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 justify-center gap-2 md:gap-3">
-              {data.data.map((category) => (
-                  <CategoryCard key={category._id} title={category.name} image={category.image }/>
-              ))}
-            </div>
-          }
-      </div>
+      <h2 className="text-center text-3xl mb-10 font-bold">
+        Featured Categories
+      </h2>
+      {isLoading ? (
+        <div className="flex justify-center">
+          <span className="inline-block w-7 h-7 border-2 border-black border-l-gray-500 rounded-full animate-spin"></span>
+        </div>
+      ) : data.result === 0 || error ? (
+        <p className="text-center text-gray-500 text-lg capitalize font-semibold">
+          there is no categories !{" "}
+        </p>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 justify-center gap-2 md:gap-3">
+          {data.data.map((category) => (
+            <CategoryCard
+              key={category._id}
+              title={category.name}
+              image={category.image}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 

@@ -19,7 +19,7 @@ export default function Home () {
                 </div>
             </section>
             <section className="py-5 pb-10">
-                <FeaturedCategories/>
+                <FeaturedCategories/> 
             </section>
         </main>
     )

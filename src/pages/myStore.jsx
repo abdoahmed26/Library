@@ -6,14 +6,17 @@ import { FaCartShopping } from "react-icons/fa6";
 import { useState } from "react";
 import { addToCart } from "../redux/CartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
 const MyStore = () => {
+    const [searchParams, setSearchParams] = useSearchParams()
     const {data, error, isLoading} = useGetProductsQuery()
     const [search,setSearch] = useState("");
     const cart = useSelector(state=>state.cart)
     const dispatch = useDispatch()
     console.log(data)
     console.log(cart)
+    console.log("paarms",)
     return (
         <div className="py-10 flex justify-center">
             <div className="container">
@@ -34,10 +37,10 @@ const MyStore = () => {
                             {
                                 data.data.map((ele)=>{
                                     return ele.title.toLowerCase().includes(search.toLowerCase()) ? 
-                                        <div key={ele.id} className="text-center bg-gray-100 shadow-lg rounded-md pb-2">
-                                            <img src={ defaultImage} alt={ele.title} className="w-full rounded-t-md"/>
+                                        <div key={ele._id} className="text-center bg-gray-100 shadow-lg rounded-md pb-2">
+                                            <img src={ ele.imageCover || defaultImage} alt={ele.title} className="w-full rounded-t-md"/>
                                             <div className="px-3">
-                                                <h1 className="font-bold text-lg">{ele.title.slice(0,10)}</h1>
+                                                <h1 className="font-bold text-lg">{ele.title.slice(0,10)}...</h1>
                                                 <p className="text-gray-500 font-bold text-sm my-2 break-words">{ele.description.slice(0,80)}</p>
                                                 <div className="flex justify-between items-center px-2">
                                                     <p className="text-red-500 font-bold">${ele.price}</p>
