@@ -2,13 +2,50 @@ import { useDispatch, useSelector } from "react-redux";
 import defaultImage from "../assets/images/DfImage.png";
 import { FaMinus, FaPlus, FaStar } from "react-icons/fa";
 import { decrement, deleteFromCart, increment } from "../redux/CartSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const FullCart = () => {
     const cart = useSelector(state=>state.cart)
     const dispatch = useDispatch()
     let sum = 0;
-    cart.map((ele)=>sum +=ele.price*ele.quantity)
+    cart.map((ele)=>sum +=ele.price*Number(ele.quantity))
+    const myUrl = useNavigate()
+    const incrCart = (ele)=>{
+        const quant = Number(ele.quantity)+1
+        axios.put(`https://ecommerce-api-hlp7.onrender.com/api/cart/${ele._id}`,{quantity:quant},{
+            headers:{
+                "Authorization":`Bearer ${localStorage.token}`
+            }
+        }).then(()=>dispatch(increment(ele))).catch(()=>{
+            localStorage.removeItem("token");
+            myUrl("/")
+            window.location.reload();
+        })
+    }
+    const decrCart = (ele)=>{
+        const quant = Number(ele.quantity)-1
+        axios.put(`https://ecommerce-api-hlp7.onrender.com/api/cart/${ele._id}`,{quantity:quant},{
+            headers:{
+                "Authorization":`Bearer ${localStorage.token}`
+            }
+        }).then(()=>dispatch(decrement(ele))).catch(()=>{
+            localStorage.removeItem("token");
+            myUrl("/")
+            window.location.reload();
+        })
+    }
+    const deleCart = (ele)=>{
+        axios.delete(`https://ecommerce-api-hlp7.onrender.com/api/cart/${ele._id}`,{
+            headers:{
+                "Authorization":`Bearer ${localStorage.token}`
+            }
+        }).then(()=>dispatch(deleteFromCart(ele))).catch(()=>{
+            localStorage.removeItem("token");
+            myUrl("/")
+            window.location.reload();
+        })
+    }
     return (
         <div className="py-10 flex justify-center">
             <div className="container">
@@ -21,7 +58,7 @@ const FullCart = () => {
                                     {
                                         cart.map((ele)=>
                                         <tr className="" key={ele.id}>
-                                            <td className="pb-5"><img src={defaultImage} alt={ele.title} className="w-20 h-20"/></td>
+                                            <td className="pb-5"><img src={ele.imageCover || defaultImage} alt={ele.title} className="w-24 h-24"/></td>
                                             <td>
                                                 <h1 className="font-bold text-xl text-center">{ele.title.slice(0,10)}</h1>
                                                 <p className="text-yellow-400 flex justify-center items-center gap-1 text-lg font-bold">
@@ -32,10 +69,10 @@ const FullCart = () => {
                                                 <div className="flex gap-3 items-center justify-center">
                                                     <p className="font-bold text-2xl">{ele.quantity}</p>
                                                     <div className="flex flex-col gap-2">
-                                                        <button onClick={()=>dispatch(increment(ele))} className="border-[3px] border-black rounded-lg h-[24px] px-1 font-bold text-[14px]">
+                                                        <button onClick={()=>incrCart(ele)} className="border-[3px] border-black rounded-lg h-[24px] px-1 font-bold text-[14px]">
                                                             <FaPlus/>
                                                         </button>
-                                                        <button onClick={()=>dispatch(decrement(ele))} className="border-[3px] border-black rounded-lg h-[24px] px-1 font-bold text-[14px]">
+                                                        <button onClick={()=>decrCart(ele)} className="border-[3px] border-black rounded-lg h-[24px] px-1 font-bold text-[14px]">
                                                             <FaMinus/>
                                                         </button>
                                                     </div>
@@ -44,14 +81,14 @@ const FullCart = () => {
                                             <td>
                                                 <div className="flex flex-col items-center justify-center">
                                                     <p className="text-2xl text-red-600 font-bold">
-                                                        ${ele.price*ele.quantity}
+                                                        ${ele.price*Number(ele.quantity)}
                                                     </p>
                                                     <p className="text-gray-400 font-bold">${ele.price} / per Item</p>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div className="flex flex-col items-center justify-center">
-                                                    <button onClick={()=>dispatch(deleteFromCart(ele))} className="bg-black p-2 px-3 text-white font-bold rounded-md">
+                                                    <button onClick={()=>deleCart(ele)} className="bg-black p-2 px-3 text-white font-bold rounded-md">
                                                         Delete
                                                     </button>
                                                 </div>
@@ -75,7 +112,7 @@ const FullCart = () => {
                             <div className="border-b-2 border-b-gray-400 pb-4">
                                 <p className="font-bold flex justify-between">
                                     <span>Total Price :</span>
-                                    <span>${sum}</span>
+                                    <span>${sum.toFixed(2)}</span>
                                 </p>
                                 <p className="font-bold flex justify-between">
                                     <span>Discount :</span>

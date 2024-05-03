@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import MyStore from "./pages/myStore";
 import Cart from "./pages/Cart";
 import SaveRoute from "./pages/SaveRoute";
+import BookDetails from "./pages/BookDetails";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route element={<SaveRoute />}> 
           <Route path="store" element={<MyStore />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="bookDetails/:id" element={<BookDetails />} />
         </Route>
       </Routes>
     </>

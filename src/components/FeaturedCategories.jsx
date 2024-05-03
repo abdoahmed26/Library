@@ -19,7 +19,7 @@ export default function FeaturedCategories() {
           there is no categories !{" "}
         </p>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 justify-center gap-2 md:gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 justify-center gap-2 md:gap-3">
           {data.data.map((category) => (
             <CategoryCard
               key={category._id}

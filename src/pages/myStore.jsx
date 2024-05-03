@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaStar } from "react-icons/fa";
 import { useGetProductsQuery } from "../redux/productsSlice";
 import defaultImage from "../assets/images/DfImage.png";
 import { FaCartShopping } from "react-icons/fa6";
 import { useState } from "react";
 import { addToCart } from "../redux/CartSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import axios from "axios";
 
 const MyStore = () => {
+    const myUrl = useNavigate()
     const [searchParams, setSearchParams] = useSearchParams()
     const {data, error, isLoading} = useGetProductsQuery()
     const [search,setSearch] = useState("");
@@ -17,6 +19,17 @@ const MyStore = () => {
     console.log(data)
     console.log(cart)
     console.log("paarms",)
+    const addCart = (ele)=>{
+        axios.post("https://ecommerce-api-hlp7.onrender.com/api/cart",{productId:ele._id},{
+            headers:{
+                "Authorization":`Bearer ${localStorage.token}`
+            }
+        }).then(()=>dispatch(addToCart(ele))).catch(()=>{
+            localStorage.removeItem("token");
+            myUrl("/")
+            window.location.reload();
+        })
+    }
     return (
         <div className="py-10 flex justify-center">
             <div className="container">
@@ -38,13 +51,18 @@ const MyStore = () => {
                                 data.data.map((ele)=>{
                                     return ele.title.toLowerCase().includes(search.toLowerCase()) ? 
                                         <div key={ele._id} className="text-center bg-gray-100 shadow-lg rounded-md pb-2">
-                                            <img src={ ele.imageCover || defaultImage} alt={ele.title} className="w-full rounded-t-md"/>
+                                            <Link to={`/bookDetails/${ele._id}`}>
+                                                <img src={ ele.imageCover || defaultImage} alt={ele.title} className="w-full rounded-t-md"/>
+                                            </Link>
                                             <div className="px-3">
                                                 <h1 className="font-bold text-lg">{ele.title.slice(0,10)}...</h1>
-                                                <p className="text-gray-500 font-bold text-sm my-2 break-words">{ele.description.slice(0,80)}</p>
+                                                <p className="text-yellow-400 flex justify-center items-center gap-1 text-lg font-bold">
+                                                    {ele.ratingsAverage} <FaStar className="text-sm"/>
+                                                </p>
+                                                {/* <p className="text-gray-500 font-bold text-sm my-2 break-words">{ele.description.slice(0,80)}</p> */}
                                                 <div className="flex justify-between items-center px-2">
                                                     <p className="text-red-500 font-bold">${ele.price}</p>
-                                                    <button onClick={()=>dispatch(addToCart(ele))}><FaCartShopping/></button>
+                                                    <button onClick={()=>addCart(ele)} className="border-2 border-black rounded-full p-[4px] w-fit"><FaCartShopping/></button>
                                                 </div>
                                             </div>
                                         </div>

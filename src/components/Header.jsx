@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import { FaSignInAlt, FaUser } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+import AccountSignOut from "./Account&SignOut";
+import { useState } from "react";
 
 function Header() {
+  const cart = useSelector(state=>state.cart)
+  const [appear,setApp] = useState("none")
   return (
     <header className="p-3 py-6 shadow-lg flex flex-col sm:flex-row gap-3 justify-between items-center">
       <div className="logo">
@@ -20,10 +25,16 @@ function Header() {
           {
             localStorage.token ?
             <>
-              <Link to={'/cart'} className="inline-block text-[26px] mr-5"><FaCartShopping/></Link>
-              <Link to={'/profile'} className="flex flex-col justify-center text-black">
+              <Link to={'/cart'} className="inline-block text-[26px] mr-5 relative">
+                <FaCartShopping/>
+                <span className="bg-red-500 text-white text-xs absolute -top-2 -right-1 px-1 rounded-full">
+                  {cart.length}
+                </span>
+              </Link>
+              <Link onMouseDown={()=>setApp("block")} onMouseLeave={()=>setApp("none")} className="flex flex-col justify-center text-black relative">
                 <FaUser className="text-[20px] mx-auto"/>
                 <span>name</span>
+                <AccountSignOut play={appear}/>
               </Link>
             </>
             : <>
