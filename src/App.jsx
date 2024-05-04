@@ -8,26 +8,26 @@ import Cart from "./pages/Cart";
 import SaveRoute from "./pages/SaveRoute";
 import BookDetails from "./pages/BookDetails";
 import Footer from "./components/Footer";
+import Forbidden from "./pages/Forbidden";
 
 function App() {
   return (
-    <div className="relative">
-      <div>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route element={<SaveRoute />}> 
-            <Route path="store" element={<MyStore />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="bookDetails/:id" element={<BookDetails />} />
-          </Route>
-        </Routes>
+    <div className="relative min-h-screen flex flex-col justify-between">
+      <Header />
+      <div className="flex-grow">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="forbidden" element={<Forbidden />} />
+        <Route element={<SaveRoute />}>
+          <Route path="store" element={<MyStore />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="bookDetails/:id" element={<BookDetails />} />
+        </Route>
+      </Routes>
       </div>
-      <div>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }

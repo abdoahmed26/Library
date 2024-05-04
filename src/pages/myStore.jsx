@@ -20,14 +20,17 @@ const MyStore = () => {
     console.log(cart)
     console.log("paarms",)
     const addCart = (ele)=>{
-        axios.post("https://ecommerce-api-hlp7.onrender.com/api/cart",{productId:ele._id},{
+        console.log(localStorage.token)
+        axios.post(`https://ecommerce-api-hlp7.onrender.com/api/cart`,{productId:ele._id},{
             headers:{
                 "Authorization":`Bearer ${localStorage.token}`
             }
-        }).then(()=>dispatch(addToCart(ele))).catch(()=>{
-            localStorage.removeItem("token");
-            myUrl("/")
-            window.location.reload();
+        }).then(()=>dispatch(addToCart(ele))).catch((e)=>{
+            // localStorage.removeItem("token");
+            // myUrl("/")
+            // window.location.reload();
+            console.log(e)
+            if(e.response.status === 403) myUrl("/forbidden")
         })
     }
     return (

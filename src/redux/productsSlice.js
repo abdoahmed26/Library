@@ -10,9 +10,20 @@ export const productsApi = createApi({
         }),
         getCategories: builder.query({
             query:()=>'category',
+        }),
+        getCart: builder.query({
+            query:()=>{
+                return {
+                    url:'/cart',
+                    method:"GET",
+                    headers:{
+                        Authorization:`Bearer ${localStorage.token}`
+                    }
+                }
+            }
         })
     })
 })
 
 
-export const {useGetProductsQuery, useGetCategoriesQuery} = productsApi
+export const {useGetProductsQuery, useGetCategoriesQuery, useGetCartQuery} = productsApi

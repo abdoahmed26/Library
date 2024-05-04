@@ -11,12 +11,12 @@ const Login = () => {
     const onSubmit = (data) => {
         setLoad(true);
         console.log(data)
-        axios.post("https://library-api-u8cm.onrender.com/api/v1/auth/login", data)
+        axios.post("https://ecommerce-api-hlp7.onrender.com/api/auth/login", data)
         .then((res)=>{
-            console.log(res.data.data.token);
-            localStorage.token = res.data.data.token;
+            console.log(res.data);
+            localStorage.token = res.data.token;
+            document.cookie = "token=" + res.data.token;
             myUrl("/")
-            window.location.reload();
             setLoad(false);
         }).catch(()=>{
             setLoad(false);

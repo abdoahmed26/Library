@@ -1,12 +1,9 @@
 /* eslint-disable react/prop-types */
 import { FaArrowRightFromBracket, FaGear } from "react-icons/fa6";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import {logout} from "../functions/logout"
 const AccountSignOut = ({play}) => {
-    const signOut = ()=>{
-        localStorage.removeItem("token");
-        window.location.reload()
-    }
+    const myUrl = useNavigate()
     return (
         <div style={{display:play}} className="absolute top-full mt-2 right-2 w-[200px] shadow-lg
         after:w-0 after:h-0 after:absolute after:-top-5 after:right-1 after:border-[10px] after:border-solid after:border-transparent after:border-b-red-500">
@@ -17,7 +14,7 @@ const AccountSignOut = ({play}) => {
                         <span>Manage account</span>
                     </Link>
                 </div>
-                <button onClick={()=>signOut()} className="flex items-center gap-3 mt-2 w-full">
+                <button onClick={()=>logout(myUrl)} className="flex items-center gap-3 mt-2 w-full">
                     <FaArrowRightFromBracket />
                     <span>Sign Out</span>
                 </button>
