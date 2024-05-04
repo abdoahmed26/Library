@@ -11,10 +11,17 @@ const Cart = () => {
   console.log("cart cart", data)
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  if(data){
-    console.log(data)
-    dispatch(getBook(data.data.cartItems))
+  const [check,setCheck] = useState(true)
+  const getData =()=>{
+    if(check){
+      if(data){
+        console.log(data)
+        dispatch(getBook(data.data.cartItems))
+        setCheck(false)
+      }
+    }
   }
+  getData()
   return (
     <div className="py-5">
       {isLoading ? (
