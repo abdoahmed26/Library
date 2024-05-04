@@ -28,7 +28,7 @@ const BookDetails = () => {
         })
     }
     return (
-        <div className="py-10 flex justify-center items-center">
+        <div className="py-14 flex justify-center items-center">
             <div className="container">
                     {
                         book.title ? 

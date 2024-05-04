@@ -5,7 +5,7 @@ import FullCart from "../components/FullCart";
 const Cart = () => {
     const cart = useSelector(state=>state.cart)
     return (
-        <div>
+        <div className="h-[100%]">
             {
                 cart.length > 0 ? <FullCart /> : <EmptyCart />
             }

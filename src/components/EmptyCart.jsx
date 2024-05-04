@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import empty from "../assets/images/emptyCart.png";
 const EmptyCart = () => {
     return (
-        <div className="my-5 flex justify-center">
+        <div className="py-10 flex justify-center">
             <div className='container'>
                 <div className='flex flex-col justify-center items-center gap-5'>
                     <div>

@@ -1,11 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import FeaturedCategories from "../components/FeaturedCategories"
 // import { useGetProductsQuery } from "../redux/productsSlice"
 import mainImage from '../assets/images/work-steps.png'
 import { Link } from "react-router-dom"
+import axios from "axios"
+import { useEffect, useState } from "react"
 
 export default function Home () {
     // const {data, error, isLoading} = useGetProductsQuery()
     // console.log(data, error, isLoading)
+    const [check,setCheck] = useState(true)
+    const getUser = ()=>{
+        if(check){
+            if(localStorage.token){
+                axios.get("https://ecommerce-api-hlp7.onrender.com/api/user/getMe",{
+                    headers : {
+                        "Authorization":`Bearer ${localStorage.token}`
+                    }
+                }).then((res)=>{
+                    console.log(res)
+                    setCheck(false)
+                })
+            }
+        }
+    }
+    useEffect(()=>{
+        getUser()
+    },[])
     return (
         <main>
             <section className="grid md:grid-cols-2 px-4 lg:px-10 py-10 items-center gap-3 text-center md:text-left container m-auto" style={{background:"linear-gradient(110deg, rgba(255,255,255,1) 50%, rgba(240,240,240,1) 50%)"}}>
