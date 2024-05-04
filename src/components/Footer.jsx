@@ -1,9 +1,9 @@
 
 const Footer = () => {
     return (
-        <div className="bg-black py-5 text-center text-white  left-0 w-full">
+        <div className="left-0 w-full py-5 text-center text-white bg-black">
             <footer>Designed and developed by 
-                <span className="text-red-500 italic"> El-Aaref Team </span>
+                <span className="italic text-red-500"> El-Aaref Team </span>
                 &copy; 2024.
             </footer>
         </div>

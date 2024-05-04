@@ -17,6 +17,7 @@ const Login = () => {
             localStorage.token = res.data.token;
             document.cookie = "token=" + res.data.token;
             myUrl("/")
+            window.location.reload();
             setLoad(false);
         }).catch(()=>{
             setLoad(false);

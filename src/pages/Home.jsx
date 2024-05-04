@@ -1,39 +1,17 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import FeaturedCategories from "../components/FeaturedCategories"
-// import { useGetProductsQuery } from "../redux/productsSlice"
 import mainImage from '../assets/images/work-steps.png'
 import { Link } from "react-router-dom"
-import axios from "axios"
-import { useEffect, useState } from "react"
 
 export default function Home () {
-    // const {data, error, isLoading} = useGetProductsQuery()
-    // console.log(data, error, isLoading)
-    const [check,setCheck] = useState(true)
-    const getUser = ()=>{
-        if(check){
-            if(localStorage.token){
-                axios.get("https://ecommerce-api-hlp7.onrender.com/api/user/getMe",{
-                    headers : {
-                        "Authorization":`Bearer ${localStorage.token}`
-                    }
-                }).then((res)=>{
-                    console.log(res)
-                    setCheck(false)
-                })
-            }
-        }
-    }
-    useEffect(()=>{
-        getUser()
-    },[])
     return (
         <main>
-            <section className="grid md:grid-cols-2 px-4 lg:px-10 py-10 items-center gap-3 text-center md:text-left container m-auto" style={{background:"linear-gradient(110deg, rgba(255,255,255,1) 50%, rgba(240,240,240,1) 50%)"}}>
+            <section className="container grid items-center gap-3 px-4 py-10 m-auto text-center md:grid-cols-2 lg:px-10 md:text-left" style={{background:"linear-gradient(110deg, rgba(255,255,255,1) 50%, rgba(240,240,240,1) 50%)"}}>
                 <div>
-                    <h1 className="font-bold capitalize text-2xl md:text-3xl lg:text-4xl">welcome in your comfort zone</h1>
-                    <p className="font-bold capitalize text-xl md:text-2xl lg:text-3xl text-gray-400">all you need in one place</p>
-                    <Link className="bg-black font-bold py-2 px-3 text-xl text-white capitalize inline-block my-4">shop now</Link>
+                    <h1 className="text-2xl font-bold capitalize md:text-3xl lg:text-4xl">welcome in your comfort zone</h1>
+                    <p className="text-xl font-bold text-gray-400 capitalize md:text-2xl lg:text-3xl">all you need in one place</p>
+                    <Link className="inline-block px-3 py-2 my-4 text-xl font-bold text-white capitalize bg-black">shop now</Link>
                 </div>
                 <div className="flex justify-center">
                     <img src={mainImage} alt="main image" className="w-100"/>

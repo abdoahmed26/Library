@@ -2,41 +2,51 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const CartSlice = createSlice({
   name: "CartSlice",
-  initialState: { _id: null, items: [] },
+  initialState: [],
   reducers: {
     addToCart: (state, action) => {
-      return { ...state, ...action.payload };
+      const pro = state.find(ele => ele._id === action.payload._id)
+      if(pro){
+        pro.quantity += 1;
+      }
+      else {
+        const book = {...action.payload };
+        state.push(book);
+      }
     },
     deleteFromCart: (state, action) => {
-      let items = state.items.filter(
-        (ele) => ele.product._id !== action.payload.product._id
-      );
-      return { ...state, items };
+      state = state.filter((ele) => ele._id !== action.payload._id);
+      return state;
     },
     deleteAll: () => {
-      return {};
+      return [];
     },
     increment: (state, action) => {
-      console.log(state.items, action)
-      const pro = state.items.find(
-        (ele) => ele.product._id === action.payload.product._id
+      const pro = state.find(
+        (ele) => ele._id === action.payload._id
       );
       if (pro) {
         pro.quantity += 1;
       }
     },
     decrement: (state, action) => {
-      const pro = state.items.find(
-        (ele) => ele.product._id === action.payload.product._id
+      const pro = state.find(
+        (ele) => ele._id === action.payload._id
       );
       if (pro) {
         pro.quantity > 0 ? (pro.quantity -= 1) : (pro.quantity = 0);
       }
     },
+    getBook : (state, action) =>{
+      if(state.length < action.payload.length){
+        state= action.payload
+        return state;
+      }
+    }
   },
 });
 
-export const { addToCart, deleteFromCart, deleteAll, increment, decrement } =
+export const { addToCart, deleteFromCart, deleteAll, increment, decrement, getBook} =
   CartSlice.actions;
 
 export default CartSlice.reducer;
