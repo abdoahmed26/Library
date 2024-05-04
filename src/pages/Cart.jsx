@@ -8,6 +8,7 @@ import { deleteAll, getBook } from "../redux/CartSlice";
 
 const Cart = () => {
   const { data, isError, isLoading } = useGetCartQuery();
+  console.log("cart cart", data)
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   if(data){

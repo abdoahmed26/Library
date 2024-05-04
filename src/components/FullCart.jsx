@@ -9,7 +9,7 @@ import { checkResponseStatus } from "../functions/checkResponseStatus";
 
 const FullCart = () => {
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
+  console.log("cart",cart);
   const dispatch = useDispatch();
   
   let sum = 0;
@@ -84,7 +84,7 @@ const FullCart = () => {
                       </td>
                       <td>
                         <h1 className="text-xl font-bold text-center">
-                          {ele.product.title.slice(0, 10)}
+                          {ele.product.title}
                         </h1>
                       </td>
                       <td>
