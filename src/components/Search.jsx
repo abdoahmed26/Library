@@ -38,7 +38,7 @@ export default function Search({ setQuery }) {
       <form
         className={`overflow-hidden transition-transform  origin-top  ${
           showOptions ? "scale-y-1 h-auto" : "scale-y-0 h-0"
-        } border-2 border-slate-400 rounded border-t-transparent w-[300px] ml-auto p-2`}
+        }  rounded shadow-lg shadow-gray-400 ml-auto p-2`}
       >
         <p className="font-bold capitalize">sort by</p>
         <p className="font-semibold">price</p>
@@ -83,7 +83,7 @@ export default function Search({ setQuery }) {
             setSearchParams({});
             setQuery([]);
           }}
-          className="block w-full p-1 text-white bg-black rounded cursor-pointer"
+          className="block w-48 p-1 text-white bg-black rounded cursor-pointer "
         />
       </form>
     </div>
