@@ -5,9 +5,7 @@ import { decrement, increment } from "../redux/CartSlice";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { checkResponseStatus } from "../functions/checkResponseStatus";
-// import { useState } from "react";
 import ButtonDelete from "./buttonDelete";
-// import { useGetCartQuery } from "../redux/productsSlice";
 
 const FullCart = () => {
   const cart = useSelector((state) => state.cart);
@@ -54,23 +52,6 @@ const FullCart = () => {
         });
     }
   };
-  // const [load,setLoading] = useState(false)
-  // const deleCart = (ele) => {
-  //   setLoading(true)
-  //   axios
-  //     .delete(`https://ecommerce-api-hlp7.onrender.com/api/cart/${ele._id}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.token}`,
-  //       },
-  //     })
-  //     .then(() => {
-  //       dispatch(deleteFromCart(ele))
-  //       setLoading(false)
-  //     })
-  //     .catch((e) => {
-  //       checkResponseStatus(e, myUrl);
-  //     });
-  // };
   return (
     <div className="flex justify-center py-10">
       <div className="container">
@@ -125,18 +106,6 @@ const FullCart = () => {
                       </td>
                       <td>
                         <div className="flex flex-col items-center justify-center">
-                          {/* <button disabled={load}
-                            onClick={() => deleCart(ele)}
-                            className="p-2 px-3 font-bold text-white bg-black rounded-md"
-                          >
-                            {
-                              load ?
-                              <div className="flex justify-center">
-                                <span className="inline-block border-2 border-white rounded-full w-5 h-5 border-l-gray-500 animate-spin"></span>
-                              </div>
-                              :"Delete"
-                            }
-                          </button> */}
                           <ButtonDelete element={ele} />
                         </div>
                       </td>
