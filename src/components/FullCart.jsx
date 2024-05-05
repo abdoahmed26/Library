@@ -9,7 +9,6 @@ import ButtonDelete from "./buttonDelete";
 
 const FullCart = () => {
   const cart = useSelector((state) => state.cart);
-  console.log("cart",cart);
   const dispatch = useDispatch();
   
   let sum = 0;
@@ -62,7 +61,7 @@ const FullCart = () => {
               <table className="w-[555px] sm:w-full">
                 <tbody className="">
                   {cart.map((ele) => (
-                    <tr className="" key={ele.product.id}>
+                    <tr className="" key={ele._id}>
                       <td className="pb-5">
                         <img
                           src={ele.product.imageCover || defaultImage}
@@ -72,7 +71,7 @@ const FullCart = () => {
                       </td>
                       <td>
                         <h1 className="text-xl font-bold text-center">
-                          {ele.product.title}...
+                          {ele.product?.title.slice(0,10)}...
                         </h1>
                       </td>
                       <td>
@@ -97,7 +96,7 @@ const FullCart = () => {
                       <td>
                         <div className="flex flex-col items-center justify-center">
                           <p className="text-2xl font-bold text-red-600">
-                            ${ele.price * Number(ele.quantity)}
+                            ${(ele.price * Number(ele.quantity)).toFixed(2)}
                           </p>
                           <p className="font-bold text-gray-400">
                             ${ele.price} / per Item
@@ -150,7 +149,7 @@ const FullCart = () => {
               <div className="pt-4">
                 <p className="flex justify-between font-bold">
                   <span>Total Price :</span>
-                  <span>${(sum + 1.5 - 2.52).toFixed(2)}</span>
+                  <span>${(sum > 0 ? sum + 1.5 - 2.52 : sum=0).toFixed(2)}</span>
                 </p>
                 <div className="flex flex-col gap-3 mt-5">
                   <Link

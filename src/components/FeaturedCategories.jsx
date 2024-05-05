@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import defaultImage from "../assets/images/default-book.png";
 import { useGetCategoriesQuery } from "../redux/productsSlice";
 export default function FeaturedCategories() {
-  // eslint-disable-next-line no-unused-vars
   const { data, error, isLoading } = useGetCategoriesQuery();
   return (
     <div className="container m-auto">

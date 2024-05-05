@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import  { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoOptionsOutline } from "react-icons/io5";
@@ -14,7 +15,7 @@ export default function Search({ setQuery }) {
   };
   return (
     <div>
-      <div className="p-2 border-2 border-gray-400 flex items-center justify-between   max-w-full   rounded">
+      <div className="flex items-center justify-between max-w-full p-2 border-2 border-gray-400 rounded">
         <input
           type="text"
           name="search"
@@ -27,7 +28,7 @@ export default function Search({ setQuery }) {
           <FaSearch />
         </span>
         <button
-          className="text-3xl ml-2 border-2 rounded border- border-gray-300 focus:border-gray-800"
+          className="ml-2 text-3xl border-2 border-gray-300 rounded border- focus:border-gray-800"
           onClick={() => setShowOptions((s) => !s)}
         >
           <IoOptionsOutline />
@@ -41,7 +42,7 @@ export default function Search({ setQuery }) {
       >
         <p className="font-bold capitalize">sort by</p>
         <p className="font-semibold">price</p>
-        <label className="text-sm m-1 font-medium text-gray-500 capitalize" htmlFor="leastPrice">from least</label>
+        <label className="m-1 text-sm font-medium text-gray-500 capitalize" htmlFor="leastPrice">from least</label>
         <input
           type="radio"
           name="sort"
@@ -49,7 +50,7 @@ export default function Search({ setQuery }) {
           value="price"
           onChange={(e) => handleChange(e)}
         />
-        <label className="text-sm m-1 font-medium text-gray-500 capitalize" htmlFor="mostPrice">from most</label>
+        <label className="m-1 text-sm font-medium text-gray-500 capitalize" htmlFor="mostPrice">from most</label>
         <input
           type="radio"
           name="sort"
@@ -58,7 +59,7 @@ export default function Search({ setQuery }) {
           onChange={(e) => handleChange(e)}
         />
         <p className="font-semibold">Ratings</p>
-        <label className="text-sm m-1 font-medium text-gray-500 capitalize" htmlFor="leastRatings">from least</label>
+        <label className="m-1 text-sm font-medium text-gray-500 capitalize" htmlFor="leastRatings">from least</label>
         <input
           type="radio"
           name="sort"
@@ -66,7 +67,7 @@ export default function Search({ setQuery }) {
           value="ratingsAverage"
           onChange={(e) => handleChange(e)}
         />
-        <label className="text-sm m-1 font-medium text-gray-500 capitalize" htmlFor="mostRatings">from most</label>
+        <label className="m-1 text-sm font-medium text-gray-500 capitalize" htmlFor="mostRatings">from most</label>
         <input
           type="radio"
           name="sort"
@@ -82,7 +83,7 @@ export default function Search({ setQuery }) {
             setSearchParams({});
             setQuery([]);
           }}
-          className="block bg-black text-white p-1 w-full cursor-pointer rounded"
+          className="block w-full p-1 text-white bg-black rounded cursor-pointer"
         />
       </form>
     </div>

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaSignInAlt, FaUser } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import AccountSignOut from "./Account&SignOut";
 import { useEffect, useState } from "react";
 import { addUser } from "../redux/userSlice";
 import axios from "axios";
+import { getBook } from "../redux/CartSlice";
 
 function Header() {
   const cart = useSelector((state) => state.cart);
@@ -28,14 +29,28 @@ function Header() {
                 }).then((res)=>{
                     dispatch(addUser(res.data.data))
                     setName(res.data.data.name)
-                    setCheck(false)
+                    console.log(res.data.data)
                 })
+                axios.get("https://ecommerce-api-hlp7.onrender.com/api/cart",{
+                    headers : {
+                      Authorization:`Bearer ${localStorage.token}`
+                    }
+                }).then((res)=>{
+                  dispatch(getBook(res.data.data.cartItems))
+                })
+                setCheck(false)
             }
         }
     }
     useEffect(()=>{
-        getUser()
+      getUser()
     },[])
+
+    const myUrl = useNavigate()
+    const goToCart = ()=>{
+      myUrl("/cart")
+      window.location.reload();
+    }
   return (
     <header className="flex flex-col items-center justify-between gap-3 p-3 py-6 shadow-lg sm:flex-row">
       <div className="logo">
@@ -60,8 +75,7 @@ function Header() {
         <div className="flex items-center font-semibold capitalize">
           {localStorage.token ? (
             <>
-              <Link
-                to={"/cart"}
+              <Link onClick={()=>goToCart()}
                 className="inline-block text-[26px] mr-5 relative"
               >
                 <FaCartShopping />
