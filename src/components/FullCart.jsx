@@ -91,7 +91,7 @@ const FullCart = () => {
                       </td>
                       <td>
                         <h1 className="text-xl font-bold text-center">
-                          {ele.product.title}
+                          {ele.product.title}...
                         </h1>
                       </td>
                       <td>
