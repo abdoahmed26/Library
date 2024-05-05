@@ -38,10 +38,11 @@ const CartSlice = createSlice({
       }
     },
     getBook : (state, action) =>{
-      if(state.length < action.payload.length){
-        state= action.payload
-        return state;
-      }
+      // if(state.length < action.payload.length){
+      //   state = action.payload
+      //   return state;
+      // }
+      return [...state, action.payload]
     }
   },
 });
