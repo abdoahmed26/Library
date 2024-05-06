@@ -86,8 +86,8 @@ function Header() {
                 className="relative flex flex-col justify-center text-black"
               >
                 <FaUser className="text-[20px] mx-auto" />
-                <span>{user.name}</span>
-                <AccountSignOut play={appear} />
+                <span>{user.username || user.name}</span>
+                <AccountSignOut play={appear}/>
               </Link>
             </>
           ) : (
