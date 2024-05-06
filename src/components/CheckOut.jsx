@@ -1,24 +1,22 @@
 import axios from "axios";
-import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function CheckOut() {
-  const { totalCartPrice, _id, totalCartpriceAfterDiscount } = useSelector(
-    (state) => state.cart
-  );
+  const fullCart = useSelector((state) => state.cart);
+  const cart = fullCart.cartItems
   // console.log(fullCart)
-  const url = location
-  console.log(url)
+  let sum = 0;
+  cart.map((ele) => (sum += ele.price * Number(ele.quantity)));
 
   const checkout = (id) => {
     axios.post(
       `https://ecommerce-api-hlp7.onrender.com/api/order/create-session/${id}`,
     //   `http://localhost:5000/api/order/create-session/${id}`,
-     {
-        successUrl: location.origin + "/order-done",
-        failUrl: location.origin + "/cart"
-     },
+      {
+          successUrl: location.origin + "/#/order-done",
+          failUrl: location.origin + "/#/cart",
+      },
       {
         headers:{
             Authorization:`Bearer ${localStorage.token}`,
@@ -29,10 +27,12 @@ export default function CheckOut() {
     ).then(res=>{
         console.log(res)
         location.replace(res.data.data.url)
-    })
-     .catch(e=>console.log(e))
+      })
+      .catch(()=>{
+      })
   };
 
+  const discount = sum - fullCart.totalCartpriceAfterDiscount || 0;
   return (
     <div className="mx-auto w-fit">
       <div className="p-3 px-2 border border-gray-400 rounded-md">
@@ -55,24 +55,24 @@ export default function CheckOut() {
         <div className="pb-4 border-b-2 border-b-gray-400">
           <p className="flex justify-between font-bold">
             <span>Total Price :</span>
-            <span>${totalCartPrice}</span>
+            <span>${sum.toFixed(2)}</span>
           </p>
           <p className="flex justify-between font-bold">
             <span>Discount :</span>
             <span className="text-red-500">
-              {totalCartPrice - totalCartpriceAfterDiscount || 0}
+              {discount}
             </span>
           </p>
         </div>
         <div className="pt-4">
           <p className="flex justify-between font-bold">
-            <span>Total Price After Discount:</span>
-            <span>${totalCartpriceAfterDiscount || totalCartPrice}</span>
+            <span>Price After Discount:</span>
+            <span>${(sum - discount).toFixed(2)}</span>
           </p>
           <div className="flex flex-col gap-3 mt-5">
             <button
               className="bg-black p-2 w-[60%] text-center text-white font-bold rounded-md mx-auto"
-              onClick={()=>checkout(_id)}
+              onClick={()=>checkout(fullCart._id)}
             >
               Purchase
             </button>

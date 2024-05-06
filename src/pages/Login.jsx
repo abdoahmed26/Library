@@ -10,10 +10,8 @@ const Login = () => {
     const {register,handleSubmit,formState:{ errors }} = useForm();
     const onSubmit = (data) => {
         setLoad(true);
-        console.log(data)
         axios.post("https://ecommerce-api-hlp7.onrender.com/api/auth/login", data)
         .then((res)=>{
-            console.log(res.data);
             localStorage.token = res.data.token;
             document.cookie = "token=" + res.data.token;
             myUrl("/")

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import defaultImage from "../assets/images/DfImage.png";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { decrement, increment } from "../redux/CartSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { checkResponseStatus } from "../functions/checkResponseStatus";
 import ButtonDelete from "./buttonDelete";
@@ -12,7 +12,7 @@ const FullCart = () => {
   const fullCart = useSelector((state) => state.cart);
   const cart = fullCart.cartItems
   const dispatch = useDispatch();
-  console.log(fullCart)
+  // console.log(fullCart)
   let sum = 0;
   cart.map((ele) => (sum += ele.price * Number(ele.quantity)));
 
@@ -55,7 +55,7 @@ const FullCart = () => {
         });
     }
   };
-  console.log(cart)
+  // console.log(cart)
   return (
     <div className="flex justify-center py-10">
       <div className="container">

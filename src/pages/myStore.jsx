@@ -62,7 +62,6 @@ const MyStore = () => {
                         {/* <p className="my-2 text-sm font-bold text-gray-500 break-words">{ele.description.slice(0,80)}</p> */}
                         <div className="flex items-center justify-between px-2">
                           <p className="font-bold text-red-500">${ele.price}</p>
-
                           <AddToCart
                             ele={ele}
                             isInCart={cart.cartItems?.some((e) => e.product === ele._id)}

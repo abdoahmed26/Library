@@ -10,7 +10,6 @@ const Register = () => {
     const {register,handleSubmit,formState:{ errors }} = useForm();
     const onSubmit = (data) => {
         setLoad(true);
-        console.log(data)
         axios.post("https://library-api-u8cm.onrender.com/api/v1/auth/register", data)
         .then(()=>{
             // go to login
