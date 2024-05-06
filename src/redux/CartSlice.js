@@ -1,28 +1,36 @@
+/* eslint-disable no-undef */
 import { createSlice } from "@reduxjs/toolkit";
 
 const CartSlice = createSlice({
   name: "CartSlice",
-  initialState: [],
+  initialState: {_id:"",cartItems: [],
+  createdAt:"",
+  totalCartPrice:"",
+  updatedAt: "",
+  user:"",
+  __v:"",
+  },
   reducers: {
     addToCart: (state, action) => {
-      const pro = state.find(ele => ele._id === action.payload._id)
+      const pro = state.cartItems.find(ele => ele._id === action.payload._id)
       if(pro){
         pro.quantity += 1;
       }
       else {
         const book = {...action.payload };
-        state.push(book);
+        state.cartItems.push(book);
       }
     },
     deleteFromCart: (state, action) => {
-      state = state.filter((ele) => ele._id !== action.payload._id);
+      const cartItems = state.cartItems?.filter((ele) => ele._id !== action.payload._id);
+      state.cartItems = cartItems;
       return state;
     },
     deleteAll: () => {
       return [];
     },
     increment: (state, action) => {
-      const pro = state.find(
+      const pro = state.cartItems.find(
         (ele) => ele._id === action.payload._id
       );
       if (pro) {
@@ -30,7 +38,7 @@ const CartSlice = createSlice({
       }
     },
     decrement: (state, action) => {
-      const pro = state.find(
+      const pro = state.cartItems.find(
         (ele) => ele._id === action.payload._id
       );
       if (pro) {
@@ -38,7 +46,7 @@ const CartSlice = createSlice({
       }
     },
     getBook : (state, action) =>{
-      if(state.length < action.payload.length){
+      if(state.cartItems.length < action.payload.cartItems.length){
         state = action.payload
         return state;
       }

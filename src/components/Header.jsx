@@ -17,7 +17,6 @@ function Header() {
   const [appear, setApp] = useState("none");
 
   const dispatch = useDispatch();
-    const [username,setName] = useState("Name")
     const [check,setCheck] = useState(true)
     const getUser = ()=>{
         if(check){
@@ -28,15 +27,13 @@ function Header() {
                     }
                 }).then((res)=>{
                     dispatch(addUser(res.data.data))
-                    setName(res.data.data.name)
-                    console.log(res.data.data)
                 })
                 axios.get("https://ecommerce-api-hlp7.onrender.com/api/cart",{
                     headers : {
                       Authorization:`Bearer ${localStorage.token}`
                     }
                 }).then((res)=>{
-                  dispatch(getBook(res.data.data.cartItems))
+                  dispatch(getBook(res.data.data))
                 })
                 setCheck(false)
             }
@@ -80,7 +77,7 @@ function Header() {
               >
                 <FaCartShopping />
                 <span className="absolute px-1 text-xs text-white bg-red-500 rounded-full -top-2 -right-1">
-                  {cart.length}
+                  {cart.cartItems?.length}
                 </span>
               </Link>
               <Link
@@ -89,7 +86,7 @@ function Header() {
                 className="relative flex flex-col justify-center text-black"
               >
                 <FaUser className="text-[20px] mx-auto" />
-                <span>{username}</span>
+                <span>{user.name}</span>
                 <AccountSignOut play={appear} />
               </Link>
             </>

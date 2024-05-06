@@ -9,10 +9,11 @@ import SaveRoute from "./pages/SaveRoute";
 import BookDetails from "./pages/BookDetails";
 import Footer from "./components/Footer";
 import Forbidden from "./pages/Forbidden";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
-    <div className="relative min-h-screen flex flex-col justify-between">
+    <div className="relative flex flex-col justify-between min-h-screen">
       <Header />
       <div className="flex-grow">
       <Routes>
@@ -24,6 +25,7 @@ function App() {
           <Route path="store" element={<MyStore />} />
           <Route path="cart" element={<Cart />} />
           <Route path="bookDetails/:id" element={<BookDetails />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
       </div>

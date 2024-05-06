@@ -20,8 +20,8 @@ const MyStore = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState([...searchParams.entries()]);
   const { data, error, isLoading } = useGetProductsQuery(searchQuery);
-  console.log(data, error, isLoading);
-  console.log(searchQuery);
+//   console.log(data, error, isLoading);
+//   console.log(searchQuery);
 
   const cart = useSelector((state) => state.cart);
   return (
@@ -65,7 +65,7 @@ const MyStore = () => {
 
                           <AddToCart
                             ele={ele}
-                            isInCart={cart.some((e) => e.product === ele._id)}
+                            isInCart={cart.cartItems?.some((e) => e.product === ele._id)}
                           />
                         </div>
                       </div>

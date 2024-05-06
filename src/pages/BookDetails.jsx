@@ -21,10 +21,7 @@ const BookDetails = () => {
             headers:{
                 Authorization:`Bearer ${localStorage.token}`
             }
-        }).then((res)=>dispatch(getBook(res.data.cartItems))).catch((e)=>{
-            // localStorage.removeItem("token");
-            // myUrl("/")
-            // window.location.reload();
+        }).then((res)=>dispatch(getBook(res.data))).catch((e)=>{
             console.log(e)
             if(e.response.status === 403) myUrl("/forbidden")
         })

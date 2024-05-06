@@ -8,7 +8,8 @@ import { checkResponseStatus } from "../functions/checkResponseStatus";
 import ButtonDelete from "./buttonDelete";
 
 const FullCart = () => {
-  const cart = useSelector((state) => state.cart);
+  const fullCart = useSelector((state) => state.cart);
+  const cart = fullCart.cartItems
   const dispatch = useDispatch();
   
   let sum = 0;

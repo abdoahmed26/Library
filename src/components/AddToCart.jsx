@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import axios from "axios";
-import React from "react";
 import { checkResponseStatus } from "../functions/checkResponseStatus";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getBook } from "../redux/CartSlice";
 import { FaCartArrowDown, FaCartPlus } from "react-icons/fa";
 
@@ -20,17 +21,17 @@ export default function AddToCart({ ele, isInCart }) {
           },
         }
       )
-      .then((res) => dispatch(getBook(res.data.cartItems)))
+      .then((res) => dispatch(getBook(res.data)))
       .catch((e) => {
         checkResponseStatus(e, myUrl);
       });
   };
   return isInCart ? (
-    <button onClick={() => addCart(ele)} className="text-red-900 text-2xl">
+    <button onClick={() => addCart(ele)} className="text-2xl text-red-900">
       <FaCartArrowDown />
     </button>
   ) : (
-    <button onClick={() => addCart(ele)} className="text-green-900 text-2xl">
+    <button onClick={() => addCart(ele)} className="text-2xl text-green-900">
       <FaCartPlus /> 
     </button>
   );
