@@ -14,7 +14,7 @@ const Profile = () => {
         setLoad(true);
         const firstData = {
             username: data.name || undefined,
-            email: data.email || undefined,
+            email: data.email === user.email ? undefined : data.email  || undefined,
             phone: data.phone || undefined,
             profileImage: data.profileImage[0] || "",
         }
@@ -23,7 +23,7 @@ const Profile = () => {
                 Authorization : `Bearer ${localStorage.token}`
             }
         }).then((res)=>{
-            // console.log(res)
+            console.log(res)
         }).finally(()=>{
             window.location.reload()
         })
