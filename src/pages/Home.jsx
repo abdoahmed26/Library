@@ -11,7 +11,7 @@ export default function Home () {
                 <div>
                     <h1 className="text-2xl font-bold capitalize md:text-3xl lg:text-4xl">welcome in your comfort zone</h1>
                     <p className="text-xl font-bold text-gray-400 capitalize md:text-2xl lg:text-3xl">all you need in one place</p>
-                    <Link className="inline-block px-3 py-2 my-4 text-xl font-bold text-white capitalize bg-black">shop now</Link>
+                    <Link to={'/store'} className="inline-block px-3 py-2 my-4 text-xl font-bold text-white capitalize bg-black">shop now</Link>
                 </div>
                 <div className="flex justify-center">
                     <img src={mainImage} alt="main image" className="w-100"/>
