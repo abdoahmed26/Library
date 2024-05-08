@@ -3,6 +3,7 @@ import img1 from "../assets/images/work-steps.png"
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { alertError } from "../functions/alerts";
 
 const Register = () => {
     const myUrl = useNavigate();
@@ -17,7 +18,7 @@ const Register = () => {
             setLoad(false);
         }).catch(()=>{
             setLoad(false);
-            alert("Email already exists")
+            alertError("Email already exists!")
         })
     }
     return (

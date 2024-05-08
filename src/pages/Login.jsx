@@ -3,6 +3,7 @@ import img1 from "../assets/images/work-steps.png"
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { alertError } from "../functions/alerts";
 
 const Login = () => {
     const myUrl = useNavigate();
@@ -19,7 +20,7 @@ const Login = () => {
             setLoad(false);
         }).catch(()=>{
             setLoad(false);
-            alert("email or password is incorrect")
+            alertError("Email or Password is incorrect!")
         });
     }
     return (

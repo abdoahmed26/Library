@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBook } from "../redux/CartSlice";
 import { FaCartArrowDown, FaCartPlus } from "react-icons/fa";
 import { useState } from "react";
-import Swal from "sweetalert2";
+import { alertSuccess } from "../functions/alerts";
 
 export default function AddToCart({ ele, isInCart }) {
   const [isLoading, setLoading] = useState(false);
@@ -28,11 +28,7 @@ export default function AddToCart({ ele, isInCart }) {
       )
       .then((res) => {
         dispatch(getBook(res.data));
-        Swal.fire({
-          title: "Successfully!",
-          text: "The book add to cart!",
-          icon: "success"
-        });
+        alertSuccess()
         setLoading(false);
       })
       .catch((e) => {

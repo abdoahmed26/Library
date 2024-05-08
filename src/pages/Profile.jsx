@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { alertError } from "../functions/alerts";
 
 const Profile = () => {
     const {register,handleSubmit,formState:{ errors }} = useForm();
@@ -16,16 +17,17 @@ const Profile = () => {
             username: data.name || undefined,
             email: data.email === user.email ? undefined : data.email  || undefined,
             phone: data.phone || undefined,
-            profileImage: data.profileImage[0] || "",
+            profileImage: data.profileImage[0] || undefined,
         }
         axios.put("https://ecommerce-api-hlp7.onrender.com/api/user/updateMe",firstData,{
             headers : {
-                Authorization : `Bearer ${localStorage.token}`
+                Authorization : `Bearer ${localStorage.token}`,
+                "Content-Type": "multipart/form-data",
             }
         }).then((res)=>{
             console.log(res)
-        }).finally(()=>{
-            window.location.reload()
+        }).catch(()=>alertError("something wrong")).finally(()=>{
+            // window.location.reload()
         })
         // console.log(data)
         console.log(firstData)
