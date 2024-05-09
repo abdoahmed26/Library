@@ -22,14 +22,15 @@ const Profile = () => {
   // console.log(user)
   const onSubmit = (data) => {
     setLoad(true);
-    console.log(data)
+    console.log("data", data);
     const firstData = {
       username: data.username || undefined,
       name: data.name || undefined,
       email: data.email === user.email ? undefined : data.email || undefined,
       phone: data.phone || undefined,
-      profileImage: data.profileImage[0] || undefined,
-    };
+      profileImage: img || undefined,
+    }; 
+    console.log(firstData)
     axios
       .put(
         "https://ecommerce-api-hlp7.onrender.com/api/user/updateMe",
@@ -53,7 +54,7 @@ const Profile = () => {
       })
       .finally(() => setLoad(false));
     // console.log(data)
-    console.log(firstData);
+    // console.log(firstData);
     // const changes = {
     //     password : data.password,
     //     newPassword : data.newPassword,

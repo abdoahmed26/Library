@@ -86,7 +86,7 @@ function Header() {
                 className="relative flex flex-col justify-center text-black"
               >
                 {user.profileImage?<img src={user.profileImage} className="w-9 rounded-full aspect-square inline-block m-auto"></img> :<FaUser className="text-[20px] mx-auto" />}
-                <span>{user.name || user.username}</span>
+                <span>{user.username|| user.name  }</span>
                 <AccountSignOut play={appear}/>
               </Link>
             </>
