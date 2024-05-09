@@ -85,8 +85,8 @@ function Header() {
                 onMouseLeave={() => setApp("none")}
                 className="relative flex flex-col justify-center text-black"
               >
-                <FaUser className="text-[20px] mx-auto" />
-                <span>{user.username || user.name}</span>
+                {user.profileImage?<img src={user.profileImage} className="w-9 rounded-full aspect-square inline-block m-auto"></img> :<FaUser className="text-[20px] mx-auto" />}
+                <span>{user.name || user.username}</span>
                 <AccountSignOut play={appear}/>
               </Link>
             </>
