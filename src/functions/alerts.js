@@ -57,12 +57,12 @@ export const fireToast = (message, status)=>{
         timer: 3000,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
         }
-      });
-      Toast.fire({
+    });
+    Toast.fire({
         icon:status || "success",
         title:message || "toast fired successfully"
-      });
+    });
 }

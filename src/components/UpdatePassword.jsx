@@ -47,6 +47,7 @@ export default function UpdatePassword() {
       })
       .finally(() => {
         setLoading(false);
+        window.location.reload();
       });
   };
 
@@ -56,7 +57,7 @@ export default function UpdatePassword() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="m-auto p-3 flex-col w-full gap-6 border border-gray-400 rounded-md sm:pr-5 sm:flex-row sm:w-fit"
+      className="mt-3 p-3 flex-col w-full gap-6 border border-gray-400 rounded-md sm:pr-5 sm:flex-row sm:w-fit"
     >
       {formError ? (
         <p className="text-xs font-semibold text-red-500 ml-auto">
@@ -66,77 +67,89 @@ export default function UpdatePassword() {
         ""
       )}
       <p className="text-2xl font-bold capitalize mt-2 mb-3">update password</p>
-      <div className="flex justify-between align-middle flex-wrap my-3">
+      <div className="flex flex-col sm:flex-row justify-between w-full align-middle my-3">
         <label htmlFor="oPassword" className="font-bold mr-2">
           Old Password
         </label>
-        <input
-          className=" border-2 border-slate-400 outline-none px-2 w-[300px]"
-          type="password"
-          name="oldPassword"
-          id="oPassword"
-          onChange={handleChange}
-          value={data.oldPassword}
-        />
-        {(data.oldPassword && data?.oldPassword?.length < 6) ||
-        data?.oldPassword?.length > 20 ? (
-          <p className="text-xs font-semibold text-red-500 ml-auto">
-            old password must be betweent 6:20 in length
-          </p>
-        ) : (
-          ""
-        )}
+        <div>
+          <input
+            className="w-full border-2 border-slate-400 outline-none px-2 sm:w-[300px]"
+            type="password"
+            name="oldPassword"
+            id="oPassword"
+            onChange={handleChange}
+            value={data.oldPassword}
+          />
+          {(data.oldPassword && data?.oldPassword?.length < 6) ||
+          data?.oldPassword?.length > 20 ? (
+            <p className="text-xs font-semibold text-red-500 ml-auto">
+              old password must be betweent 6:20 in length
+            </p>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
-      <div className="flex justify-between align-middle flex-wrap my-3">
+      <div className="flex flex-col sm:flex-row justify-between align-middle my-3">
         <label htmlFor="password" className="font-bold mr-2">
           {" "}
           new password
         </label>
-        <input
-          className=" border-2 border-slate-400 outline-none px-2 w-[300px]"
-          type="password"
-          name="password"
-          id="password"
-          onChange={handleChange}
-          value={data.password}
-        />
+        <div>
+          <input
+            className="w-full border-2 border-slate-400 outline-none px-2 sm:w-[300px]"
+            type="password"
+            name="password"
+            id="password"
+            onChange={handleChange}
+            value={data.password}
+          />
+          {(data.password && data?.password?.length < 6) ||
+          data?.password?.length > 20 ? (
+            <p className="text-xs font-semibold text-red-500 ml-auto">
+              old password must be betweent 6:20 in length
+            </p>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
-      {(data.password && data?.password?.length < 6) ||
-      data?.password?.length > 20 ? (
-        <p className="text-xs font-semibold text-red-500 ml-auto">
-          old password must be betweent 6:20 in length
-        </p>
-      ) : (
-        ""
-      )}
-      <div className="flex justify-between align-middle flex-wrap my-3">
+      <div className="flex flex-col sm:flex-row justify-between align-middle flex-wrap my-3">
         <label htmlFor="passwordC" className="font-bold mr-2">
           confirm Password
         </label>
-        <input
-          className=" border-2 border-slate-400 outline-none px-2 w-[300px]"
-          type="password"
-          name="passwordComfirmation"
-          id="passwordC"
-          onChange={handleChange}
-          value={data.passwordComfirmation}
-        />
+        <div>
+          <input
+            className="w-full border-2 border-slate-400 outline-none px-2 sm:w-[300px]"
+            type="password"
+            name="passwordComfirmation"
+            id="passwordC"
+            onChange={handleChange}
+            value={data.passwordComfirmation}
+          />
+          {data.passwordComfirmation &&
+          data.password !== data.passwordComfirmation ? (
+            <p className="text-xs font-semibold text-red-500 ml-auto">
+              confirm password must be equal to new password
+            </p>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
-      {data.passwordComfirmation &&
-      data.password !== data.passwordComfirmation ? (
-        <p className="text-xs font-semibold text-red-500 ml-auto">
-          confirm password must be equal to new password
-        </p>
-      ) : (
-        ""
-      )}
-
       <button
         type="submit"
         disabled={isLoading}
         className="bg-black text-white p-2 rounded capitalize font-semibold"
       >
-        update password{isLoading && "loading..."}
+        {
+          isLoading ? 
+            <div className="flex items-center gap-1">
+              <span className="inline-block w-4 h-4 border-2 border-white rounded-full border-l-gray-500 animate-spin"></span>
+              Updating
+            </div>
+          :"Update password"
+        }
       </button>
     </form>
   );
