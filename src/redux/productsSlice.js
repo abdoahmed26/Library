@@ -31,9 +31,12 @@ export const productsApi = createApi({
                     }
                 }
             }
+        }), 
+        getProcutReviews:builder.query({
+            query:(product)=>`review?product=${product}`
         })
     })
 })
 
 
-export const {useGetProductsQuery, useGetCategoriesQuery, useGetCartQuery} = productsApi
+export const {useGetProductsQuery, useGetCategoriesQuery, useGetCartQuery, useGetProcutReviewsQuery} = productsApi
