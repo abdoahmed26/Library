@@ -6,9 +6,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import AccountSignOut from "./Account&SignOut";
 import { useEffect, useState } from "react";
-import { addUser } from "../redux/userSlice";
-import axios from "axios";
-import { getBook } from "../redux/CartSlice";
+import { getUser } from "../functions/getUserandCart";
 
 function Header() {
   const cart = useSelector((state) => state.cart);
@@ -17,37 +15,16 @@ function Header() {
   const [appear, setApp] = useState("none");
 
   const dispatch = useDispatch();
-    const [check,setCheck] = useState(true)
-    const getUser = ()=>{
-        if(check){
-            if(localStorage.token){
-                axios.get("https://ecommerce-api-hlp7.onrender.com/api/user/getMe",{
-                    headers : {
-                      Authorization:`Bearer ${localStorage.token}`
-                    }
-                }).then((res)=>{
-                    dispatch(addUser(res.data.data))
-                })
-                axios.get("https://ecommerce-api-hlp7.onrender.com/api/cart",{
-                    headers : {
-                      Authorization:`Bearer ${localStorage.token}`
-                    }
-                }).then((res)=>{
-                  dispatch(getBook(res.data.data))
-                })
-                setCheck(false)
-            }
-        }
-    }
-    useEffect(()=>{
-      getUser()
-    },[])
+  
+  useEffect(()=>{
+    getUser(dispatch)
+  },[])
 
-    const myUrl = useNavigate()
-    const goToCart = ()=>{
-      myUrl("/cart")
-      window.location.reload();
-    }
+  const myUrl = useNavigate()
+  const goToCart = ()=>{
+    myUrl("/cart")
+    window.location.reload();
+  }
   return (
     <header className="flex flex-col items-center justify-between gap-3 p-3 py-6 shadow-lg sm:flex-row">
       <div className="logo">
