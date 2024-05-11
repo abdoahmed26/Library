@@ -57,7 +57,7 @@ const MyStore = () => {
                           {ele.title.slice(0, 10)}...
                         </h1>
                         <p className="flex items-center justify-center gap-1 text-lg font-bold text-yellow-400">
-                          {ele.ratingsAverage} <FaStar className="text-sm" />
+                          {(ele.ratingsAverage).toFixed(1)} <FaStar className="text-sm" />
                         </p>
                         {/* <p className="my-2 text-sm font-bold text-gray-500 break-words">{ele.description.slice(0,80)}</p> */}
                         <div className="flex items-center justify-between px-2">

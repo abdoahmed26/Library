@@ -49,7 +49,7 @@ const BookDetails = () => {
                       ${book.price}
                     </p>
                     <p className="flex items-center gap-1 text-lg font-bold text-yellow-400">
-                      {book.ratingsAverage} <FaStar className="text-sm" />
+                      {(book.ratingsAverage).toFixed(1)} <FaStar className="text-sm" />
                     </p>
                     <AddToCart
                       ele={book}
