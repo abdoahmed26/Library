@@ -33,11 +33,11 @@ const BookDetails = () => {
   // }
   return (
     <div className="container m-auto">
-      <div className="flex items-center justify-center py-12">
+      <div className="flex items-center justify-center pt-10">
         <div className="container">
           {book.title ? (
-            <>
-              <div className="bg-gray-200 max-w-[700px] mx-auto rounded-md flex flex-col sm:flex-row items-center">
+            <div className="max-w-[700px] mx-auto mb-6">
+              <div className="bg-gray-200 mb-6 rounded-md flex flex-col sm:flex-row items-center">
                 <img src={book.imageCover} alt={book.title} />
                 <div className="pb-5 pl-5 pr-5 sm:p-0 sm:pr-5">
                   <div className="flex flex-col gap-3">
@@ -60,7 +60,8 @@ const BookDetails = () => {
                   </div>
                 </div>
               </div>
-            </>
+              <ProductComments />
+            </div>
           ) : (
             <div className="flex justify-center">
               <span className="inline-block border-2 border-black rounded-full w-7 h-7 border-l-gray-500 animate-spin"></span>
@@ -68,7 +69,7 @@ const BookDetails = () => {
           )}
         </div>
       </div>
-      <ProductComments />
+      
     </div>
   );
 };
