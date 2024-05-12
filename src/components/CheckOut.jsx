@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { checkout } from "../functions/checkout";
 
 export default function CheckOut() {
   const fullCart = useSelector((state) => state.cart);
@@ -8,31 +8,8 @@ export default function CheckOut() {
   // console.log(fullCart)
   let sum = 0;
   cart.map((ele) => (sum += ele.price * Number(ele.quantity)));
-
-  const checkout = (id) => {
-    axios.post(
-      `https://ecommerce-api-hlp7.onrender.com/api/order/create-session/${id}`,
-    //   `http://localhost:5000/api/order/create-session/${id}`,
-      {
-          successUrl: location.origin + "/#/order-done",
-          failUrl: location.origin + "/#/cart",
-      },
-      {
-        headers:{
-            Authorization:`Bearer ${localStorage.token}`,
-            // Authorization:`Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzJjN2I0ZTRkZGZkNmQzMTk0YTExZSIsImlhdCI6MTcxNTAxODk1MywiZXhwIjoxNzE1MTkxNzUzfQ.EBskF-c41nQVowT-74_OQWEwQoZKOhdPbjxxNmKL7Zg`,
-        },
-        
-      }
-    ).then(res=>{
-        console.log(res)
-        location.replace(res.data.data.url)
-      })
-      .catch(()=>{
-      })
-  };
-
   const discount = sum - fullCart.totalCartpriceAfterDiscount || 0;
+
   return (
     <div className="mx-auto w-fit">
       <div className="p-3 px-2 border border-gray-400 rounded-md">

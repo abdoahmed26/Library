@@ -47,7 +47,7 @@ function Header() {
           </ul>
         </nav>
         <div className="flex items-center font-semibold capitalize">
-          {user ? (
+          {user.name ? (
             <>
               <Link
                 onClick={() => goToCart()}
@@ -73,7 +73,7 @@ function Header() {
                 ) : (
                   <FaUser className="text-[20px] mx-auto" />
                 )}
-                <span className="text-[.7em]">{user.name || user.username}</span>
+                <span className="text-[.7em]">{user.username || user.name}</span>
                 <AccountSignOut appear={appear} />
               </Link>
             </>

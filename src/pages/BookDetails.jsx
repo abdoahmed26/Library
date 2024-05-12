@@ -19,18 +19,6 @@ const BookDetails = () => {
   }, [id]);
   const cart = useSelector((state) => state.cart);
   const des = "Lorem ipsum dolor sit amet consectetur adipisicing elit.";
-  // const dispatch = useDispatch()
-  // const myUrl = useNavigate()
-  // const addCart = (ele)=>{
-  //     axios.post(`https://ecommerce-api-hlp7.onrender.com/api/cart`,{productId:ele._id},{
-  //         headers:{
-  //             Authorization:`Bearer ${localStorage.token}`
-  //         }
-  //     }).then((res)=>dispatch(getBook(res.data))).catch((e)=>{
-  //         console.log(e)
-  //         if(e.response.status === 403) myUrl("/forbidden")
-  //     })
-  // }
   return (
     <div className="container m-auto">
       <div className="flex items-center justify-center pt-10">

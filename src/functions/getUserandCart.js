@@ -1,7 +1,6 @@
 import axios from "axios"
 import { addUser } from "../redux/userSlice"
 import { getBook } from "../redux/CartSlice"
-import {checkResponseStatus} from "../functions/checkResponseStatus"
 
 
 export const getUser = (dispatch)=>{
@@ -12,7 +11,7 @@ export const getUser = (dispatch)=>{
             }
         }).then((res)=>{
             dispatch(addUser(res.data.data))
-        })
+        }).catch(()=>localStorage.removeItem("token"))
         axios.get("https://ecommerce-api-hlp7.onrender.com/api/cart",{
             headers : {
                 Authorization:`Bearer ${localStorage.token}`

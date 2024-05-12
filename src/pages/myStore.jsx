@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { FaSearch, FaStar } from "react-icons/fa";
 import { useGetProductsQuery } from "../redux/productsSlice";
