@@ -7,29 +7,29 @@ import { useDispatch, useSelector } from "react-redux";
 import AccountSignOut from "./Account&SignOut";
 import { useEffect, useState } from "react";
 import { getUser } from "../functions/getUserandCart";
-
+import logo from "../assets/images/kotob-logo.png"
 function Header() {
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
-  
-  const [appear, setApp] = useState("none");
+
+  const [appear, setAppear] = useState(false);
 
   const dispatch = useDispatch();
-  
-  useEffect(()=>{
-    getUser(dispatch)
-  },[])
 
-  const myUrl = useNavigate()
-  const goToCart = ()=>{
-    myUrl("/cart")
+  useEffect(() => {
+    getUser(dispatch);
+  }, []);
+
+  const myUrl = useNavigate();
+  const goToCart = () => {
+    myUrl("/cart");
     window.location.reload();
-  }
+  };
   return (
     <header className="flex flex-col items-center justify-between gap-3 p-3 py-6 shadow-lg sm:flex-row">
       <div className="logo">
         <p className="text-4xl font-bold">
-          <Link to={"/"}>Library</Link>
+          <Link to={"/"}><img src={logo} alt="logo image" className="w-28"/></Link>
         </p>
       </div>
       <div className="flex items-center gap-8">
@@ -47,9 +47,10 @@ function Header() {
           </ul>
         </nav>
         <div className="flex items-center font-semibold capitalize">
-          {localStorage.token ? (
+          {user ? (
             <>
-              <Link onClick={()=>goToCart()}
+              <Link
+                onClick={() => goToCart()}
                 className="inline-block text-[26px] mr-5 relative"
               >
                 <FaCartShopping />
@@ -57,14 +58,23 @@ function Header() {
                   {cart.cartItems?.length}
                 </span>
               </Link>
+
               <Link
-                onMouseDown={() => setApp("block")}
-                onMouseLeave={() => setApp("none")}
+                // onMouseDown={() => setApp("block")}
+                // onMouseLeave={() => setApp("none")}
+                onClick={()=>setAppear(!appear)}
                 className="relative flex flex-col justify-center text-black"
               >
-                {user.profileImage?<img src={user.profileImage} className="w-9 rounded-full aspect-square inline-block m-auto"></img> :<FaUser className="text-[20px] mx-auto" />}
-                <span>{user.username|| user.name }</span>
-                <AccountSignOut play={appear}/>
+                {user.profileImage ? (
+                  <img
+                    src={user.profileImage}
+                    className="w-9 rounded-full aspect-square inline-block m-auto"
+                  ></img>
+                ) : (
+                  <FaUser className="text-[20px] mx-auto" />
+                )}
+                <span className="text-[.7em]">{user.name || user.username}</span>
+                <AccountSignOut appear={appear} />
               </Link>
             </>
           ) : (

@@ -3,7 +3,7 @@ import { FaSearch, FaStar } from "react-icons/fa";
 import { useGetProductsQuery } from "../redux/productsSlice";
 import defaultImage from "../assets/images/DfImage.png";
 import { FaCartShopping } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getBook } from "../redux/CartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
@@ -19,9 +19,14 @@ const MyStore = () => {
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState([...searchParams.entries()]);
-  const { data, error, isLoading } = useGetProductsQuery(searchQuery);
-//   console.log(data, error, isLoading);
-//   console.log(searchQuery);
+  const [reload, setReload] = useState(0);
+  const { data, error, isLoading, refetch } = useGetProductsQuery(searchQuery);
+
+  useEffect(() => {
+    setSearchQuery([...searchParams.entries()]);
+    refetch();
+    console.log(data);
+  }, [searchParams]);
 
   const cart = useSelector((state) => state.cart);
   return (
@@ -57,14 +62,17 @@ const MyStore = () => {
                           {ele.title.slice(0, 10)}...
                         </h1>
                         <p className="flex items-center justify-center gap-1 text-lg font-bold text-yellow-400">
-                          {(ele.ratingsAverage).toFixed(1)} <FaStar className="text-sm" />
+                          {ele.ratingsAverage.toFixed(1)}{" "}
+                          <FaStar className="text-sm" />
                         </p>
                         {/* <p className="my-2 text-sm font-bold text-gray-500 break-words">{ele.description.slice(0,80)}</p> */}
                         <div className="flex items-center justify-between px-2">
                           <p className="font-bold text-red-500">${ele.price}</p>
                           <AddToCart
                             ele={ele}
-                            isInCart={cart.cartItems?.some((e) => e.product === ele._id)}
+                            isInCart={cart.cartItems?.some(
+                              (e) => e.product === ele._id
+                            )}
                           />
                         </div>
                       </div>
@@ -72,10 +80,65 @@ const MyStore = () => {
                   ) : null;
                 })}
               </div>{" "}
+              <Pagination
+                pagination={data.pagination}
+                setSearchQuery={setSearchQuery}
+              />
             </div>
           )}
         </div>
       </div>
+    </div>
+  );
+};
+
+const Pagination = ({ pagination }) => {
+  const [query, setQuery] = useSearchParams();
+
+  const setPage = (number) => {
+    const currentParams = new URLSearchParams(query);
+
+    if (currentParams.has("page")) currentParams.set("page", number);
+    else currentParams.append("page", number);
+
+    setQuery(currentParams);
+  };
+  console.log([...query]);
+  return (
+    <div className=" mt-3 flex justify-center gap-[3px] flex-wrap">
+      {pagination?.previusPage && (
+        <button
+          className={` border border-gray-400 rounded p-1 w-8 h-8  flex justify-center align-middle `}
+          onClick={() => {
+            setPage(pagination.previusPage);
+          }}
+        >
+          &lt;&lt;
+        </button>
+      )}
+      {[...Array(pagination?.pages || 0)].map((e, i) => (
+        <button
+          key={i}
+          className={` border border-gray-400 rounded p-1 w-8 h-8  flex justify-center align-middle ${
+            pagination.currentPage === i + 1 ? "bg-gray-300" : ""
+          }`}
+          onClick={() => {
+            setPage(i + 1);
+          }}
+        >
+          {i + 1}
+        </button>
+      ))}
+      {pagination?.nextPage && (
+        <button
+          className={` border border-gray-400 rounded p-1 w-8 h-8  flex justify-center align-middle `}
+          onClick={() => {
+            setPage(pagination.nextPage);
+          }}
+        >
+          &gt;&gt;
+        </button>
+      )}
     </div>
   );
 };

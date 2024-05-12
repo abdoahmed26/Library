@@ -1,7 +1,7 @@
 import axios from "axios"
 import { addUser } from "../redux/userSlice"
 import { getBook } from "../redux/CartSlice"
-
+import {checkResponseStatus} from "../functions/checkResponseStatus"
 
 
 export const getUser = (dispatch)=>{
@@ -21,15 +21,4 @@ export const getUser = (dispatch)=>{
             dispatch(getBook(res.data.data))
         })
     }
-    // else if(localStorage.access_token){
-    //     axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${localStorage.access_token}`,{
-    //         headers : {
-    //             Authorization:`Bearer ${localStorage.access_token}`,
-    //             Accept: 'application/json',
-    //         }
-    //     }).then((res)=>{
-    //         console.log(res)
-    //         dispatch(addUser(res.data))
-    //     })
-    // }
 }

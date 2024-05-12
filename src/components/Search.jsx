@@ -1,17 +1,23 @@
 /* eslint-disable react/prop-types */
-import  { useState } from "react";
+import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoOptionsOutline } from "react-icons/io5";
 import { useSearchParams } from "react-router-dom";
 
-export default function Search({ setQuery }) {
+export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
-
   const [showOptions, setShowOptions] = useState(false);
 
   const handleChange = (e) => {
-    setSearchParams({ ...searchParams, [e.target.name]: e.target.value });
-    setQuery((state) => [...state, [e.target.name, e.target.value]]);
+    const currentParams = new URLSearchParams(searchParams);
+
+    if (currentParams.has(e.target.name))
+      currentParams.set(e.target.name, e.target.value);
+    else currentParams.append(e.target.name, e.target.value);
+
+    console.log(currentParams);
+    setSearchParams(currentParams);
+    // setSearchParams({ ...searchParams, [e.target.name]: e.target.value });
   };
   return (
     <div>
@@ -42,7 +48,12 @@ export default function Search({ setQuery }) {
       >
         <p className="font-bold capitalize">sort by</p>
         <p className="font-semibold">price</p>
-        <label className="m-1 text-sm font-medium text-gray-500 capitalize" htmlFor="leastPrice">from least</label>
+        <label
+          className="m-1 text-sm font-medium text-gray-500 capitalize"
+          htmlFor="leastPrice"
+        >
+          from least
+        </label>
         <input
           type="radio"
           name="sort"
@@ -50,7 +61,12 @@ export default function Search({ setQuery }) {
           value="price"
           onChange={(e) => handleChange(e)}
         />
-        <label className="m-1 text-sm font-medium text-gray-500 capitalize" htmlFor="mostPrice">from most</label>
+        <label
+          className="m-1 text-sm font-medium text-gray-500 capitalize"
+          htmlFor="mostPrice"
+        >
+          from most
+        </label>
         <input
           type="radio"
           name="sort"
@@ -59,7 +75,12 @@ export default function Search({ setQuery }) {
           onChange={(e) => handleChange(e)}
         />
         <p className="font-semibold">Ratings</p>
-        <label className="m-1 text-sm font-medium text-gray-500 capitalize" htmlFor="leastRatings">from least</label>
+        <label
+          className="m-1 text-sm font-medium text-gray-500 capitalize"
+          htmlFor="leastRatings"
+        >
+          from least
+        </label>
         <input
           type="radio"
           name="sort"
@@ -67,7 +88,12 @@ export default function Search({ setQuery }) {
           value="ratingsAverage"
           onChange={(e) => handleChange(e)}
         />
-        <label className="m-1 text-sm font-medium text-gray-500 capitalize" htmlFor="mostRatings">from most</label>
+        <label
+          className="m-1 text-sm font-medium text-gray-500 capitalize"
+          htmlFor="mostRatings"
+        >
+          from most
+        </label>
         <input
           type="radio"
           name="sort"
@@ -75,13 +101,23 @@ export default function Search({ setQuery }) {
           id="mostRatings"
           onChange={(e) => handleChange(e)}
         />
-        <p className="font-semibold">Ratings average: {searchParams.get("ratingsAverage[gte]")|| 0}</p>
-        <input type="range" name="ratingsAverage[gte]" id="ratingsAverage" defaultValue={1} min={1} max={5} step={1} onChange={(e)=>handleChange(e)}/>
+        <p className="font-semibold">
+          Ratings average: {searchParams.get("ratingsAverage[gte]") || 0}
+        </p>
+        <input
+          type="range"
+          name="ratingsAverage[gte]"
+          id="ratingsAverage"
+          defaultValue={1}
+          min={1}
+          max={5}
+          step={1}
+          onChange={(e) => handleChange(e)}
+        />
         <input
           type="reset"
           onClick={() => {
             setSearchParams({});
-            setQuery([]);
           }}
           className="block w-48 p-1 text-white bg-black rounded cursor-pointer "
         />
