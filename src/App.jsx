@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import Forbidden from "./pages/Forbidden";
 import Profile from "./pages/Profile";
 import OrderDone from "./pages/OrderDone";
+import Wishlist from "./pages/Wishlist";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="bookDetails/:id" element={<BookDetails />} />
           <Route path="profile" element={<Profile />} />
           <Route path="order-done" element={<OrderDone />} />
+          <Route path="wishlist" element={<Wishlist/>} />
         </Route>
       </Routes>
       </div>

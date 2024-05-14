@@ -13,6 +13,7 @@ import { checkResponseStatus } from "../functions/checkResponseStatus";
 import { debounce } from "../functions/debounce";
 import Search from "../components/Search";
 import AddToCart from "../components/AddToCart";
+import ProductCard from "../components/ProductCard";
 
 const MyStore = () => {
   const myUrl = useNavigate();
@@ -29,7 +30,6 @@ const MyStore = () => {
     console.log(data);
   }, [searchParams]);
 
-  const cart = useSelector((state) => state.cart);
   return (
     <div className="flex justify-center py-10">
       <div className="container">
@@ -44,41 +44,7 @@ const MyStore = () => {
               <p className="block mb-2 font-semibold">Result: {data.result}</p>
               <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                 {data.data.map((ele) => {
-                  return ele.title
-                    .toLowerCase()
-                    .includes(search.toLowerCase()) ? (
-                    <div
-                      key={ele._id}
-                      className="pb-2 text-center bg-gray-100 rounded-md shadow-lg"
-                    >
-                      <Link to={`/bookDetails/${ele._id}`}>
-                        <img
-                          src={ele.imageCover || defaultImage}
-                          alt={ele.title}
-                          className="w-full rounded-t-md"
-                        />
-                      </Link>
-                      <div className="px-3">
-                        <h1 className="text-lg font-bold">
-                          {ele.title.slice(0, 10)}...
-                        </h1>
-                        <p className="flex items-center justify-center gap-1 text-lg font-bold text-yellow-400">
-                          {ele.ratingsAverage.toFixed(1)}{" "}
-                          <FaStar className="text-sm" />
-                        </p>
-                        {/* <p className="my-2 text-sm font-bold text-gray-500 break-words">{ele.description.slice(0,80)}</p> */}
-                        <div className="flex items-center justify-between px-2">
-                          <p className="font-bold text-red-500">${ele.price}</p>
-                          <AddToCart
-                            ele={ele}
-                            isInCart={cart.cartItems?.some(
-                              (e) => e.product === ele._id
-                            )}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ) : null;
+                  return <ProductCard ele={ele} key={ele._id} />;
                 })}
               </div>{" "}
               <Pagination
