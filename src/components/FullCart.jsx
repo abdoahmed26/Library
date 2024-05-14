@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ButtonDelete from "./buttonDelete";
 import CheckOut from "./CheckOut";
 import { decrCart, incrCart } from "../functions/incrementDecrementCart";
+import { useState } from "react";
 
 const FullCart = () => {
   const fullCart = useSelector((state) => state.cart);
@@ -14,6 +15,9 @@ const FullCart = () => {
   let sum = 0;
   cart.map((ele) => (sum += ele.price * Number(ele.quantity)));
   const myUrl = useNavigate();
+
+  const [loadInc,setLoadInc] = useState(false)
+  const [loadDec,setLoadDec] = useState(false)
   
   // console.log(cart)
   return (
@@ -43,14 +47,14 @@ const FullCart = () => {
                         <div className="flex items-center justify-center gap-3">
                           <p className="text-2xl font-bold">{ele.quantity}</p>
                           <div className="flex flex-col gap-2">
-                            <button
-                              onClick={() => incrCart(ele,myUrl,dispatch)}
+                            <button disabled={loadInc}
+                              onClick={() => incrCart(ele,myUrl,dispatch,setLoadInc)}
                               className="border-[3px] border-black rounded-lg h-[24px] px-1 font-bold text-[14px]"
                             >
                               <FaPlus />
                             </button>
-                            <button
-                              onClick={() => decrCart(ele,myUrl,dispatch)}
+                            <button disabled={loadDec}
+                              onClick={() => decrCart(ele,myUrl,dispatch,setLoadDec)}
                               className="border-[3px] border-black rounded-lg h-[24px] px-1 font-bold text-[14px]"
                             >
                               <FaMinus />

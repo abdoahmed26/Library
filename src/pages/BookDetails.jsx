@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 import AddToCart from "../components/AddToCart";
 import { useSelector } from "react-redux";
 import ProductComments from "../components/ProductComments";
+import Spinner from "../components/Spinner";
+import AddToWishlist from "../components/AddToWishlist";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -25,7 +27,8 @@ const BookDetails = () => {
         <div className="container">
           {book.title ? (
             <div className="max-w-[700px] mx-auto mb-6">
-              <div className="bg-gray-200 mb-6 rounded-md flex flex-col sm:flex-row items-center">
+              <div className="bg-gray-200 relative mb-6 rounded-md flex flex-col sm:flex-row items-center">
+                <AddToWishlist prodId={book._id}/>
                 <img src={book.imageCover} alt={book.title} />
                 <div className="pb-5 pl-5 pr-5 sm:p-0 sm:pr-5">
                   <div className="flex flex-col gap-3">
@@ -51,9 +54,7 @@ const BookDetails = () => {
               <ProductComments />
             </div>
           ) : (
-            <div className="flex justify-center">
-              <span className="inline-block border-2 border-black rounded-full w-7 h-7 border-l-gray-500 animate-spin"></span>
-            </div>
+            <Spinner/>
           )}
         </div>
       </div>

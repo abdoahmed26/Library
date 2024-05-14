@@ -1,21 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
 import { FaStar } from "react-icons/fa";
 import defaultImage from "../assets/images/DfImage.png";
 import AddToWishlist from "../components/AddToWishlist";
 import AddToCart from "./AddToCart";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 
 export default function ProductCard({ele}) {
-    const cart = useSelector(state=>state.cart)
-    const [isInCart, setInCart] = useState(false);
 
-    useEffect(()=>{
-        setInCart(cart.cartItems?.some(
-            (e) => e.product === ele._id
-          ))
-        //   console.log(cart)
-    },[cart])
   return (
     <div
     key={ele._id}
@@ -42,7 +34,6 @@ export default function ProductCard({ele}) {
         <p className="font-bold text-red-500">${ele.price}</p>
         <AddToCart
           ele={ele}
-          isInCart={isInCart}
         />
       </div>
     </div>

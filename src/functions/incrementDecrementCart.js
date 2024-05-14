@@ -2,7 +2,8 @@ import axios from "axios";
 import { checkResponseStatus } from "./checkResponseStatus";
 import { decrement, increment } from "../redux/CartSlice";
 
-export const incrCart = (ele,myUrl,dispatch) => {
+export const incrCart = (ele,myUrl,dispatch,setLoadInc) => {
+    setLoadInc(true);
     const quant = Number(ele.quantity) + 1;
     axios.put(
         `https://ecommerce-api-hlp7.onrender.com/api/cart/${ele.product._id}`,
@@ -18,10 +19,11 @@ export const incrCart = (ele,myUrl,dispatch) => {
     .then(() => dispatch(increment(ele)))
     .catch((e) => {
         checkResponseStatus(e, myUrl);
-    });
+    }).finally(()=>setLoadInc(false));
 };
 
-export const decrCart = (ele,myUrl,dispatch) => {
+export const decrCart = (ele,myUrl,dispatch,setLoadDec) => {
+    setLoadDec(true);
     if(ele.quantity > 0) {
         const quant = Number(ele.quantity) - 1;
         axios.put(
@@ -34,6 +36,6 @@ export const decrCart = (ele,myUrl,dispatch) => {
         }).then(() => dispatch(decrement(ele)))
         .catch((e) => {
             checkResponseStatus(e, myUrl);
-        });
+        }).finally(()=>setLoadDec(false))
     }
 };

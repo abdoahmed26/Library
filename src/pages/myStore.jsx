@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { FaSearch, FaStar } from "react-icons/fa";
@@ -14,6 +15,7 @@ import { debounce } from "../functions/debounce";
 import Search from "../components/Search";
 import AddToCart from "../components/AddToCart";
 import ProductCard from "../components/ProductCard";
+import Spinner from "../components/Spinner";
 
 const MyStore = () => {
   const myUrl = useNavigate();
@@ -27,7 +29,7 @@ const MyStore = () => {
   useEffect(() => {
     setSearchQuery([...searchParams.entries()]);
     refetch();
-    console.log(data);
+    // console.log(data);
   }, [searchParams]);
 
   return (
@@ -36,9 +38,7 @@ const MyStore = () => {
         <Search setQuery={setSearchQuery} />
         <div className="flex justify-center mt-10">
           {isLoading ? (
-            <div className="flex justify-center">
-              <span className="inline-block border-2 border-black rounded-full w-7 h-7 border-l-gray-500 animate-spin"></span>
-            </div>
+            <Spinner/>
           ) : (
             <div>
               <p className="block mb-2 font-semibold">Result: {data.result}</p>

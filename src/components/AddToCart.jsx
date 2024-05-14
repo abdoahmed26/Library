@@ -6,13 +6,13 @@ import { FaCartArrowDown, FaCartPlus } from "react-icons/fa";
 import { useState } from "react";
 import { addCart } from "../functions/addToCart";
 
-export default function AddToCart({ ele, isInCart }) {
+export default function AddToCart({ ele }) {
+  const cart = useSelector(state=>state.cart);
+  const pro = cart.cartItems.find(item=>item.product._id===ele._id)
   const [isLoading, setLoading] = useState(false);
   const myUrl = useNavigate();
   const dispatch = useDispatch();
-  
-//   console.log(isLoading);
-  return isInCart ? (
+  return pro ? (
     <button onClick={() => addCart(ele,myUrl,dispatch,setLoading)} className="text-2xl text-red-900">
       {isLoading ? "loading" : <FaCartArrowDown />}
     </button>

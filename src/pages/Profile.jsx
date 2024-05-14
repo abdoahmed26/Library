@@ -6,6 +6,7 @@ import { FaUser } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { alertError } from "../functions/alerts";
 import UpdatePassword from "../components/UpdatePassword";
+import Spinner from "../components/Spinner";
 
 const Profile = () => {
     const {register,handleSubmit,formState:{ errors }} = useForm();
@@ -108,9 +109,7 @@ const Profile = () => {
                                 <UpdatePassword />
                             </div>
                         </div>
-                    :<div className="flex justify-center">
-                        <span className="inline-block border-2 border-black rounded-full w-7 h-7 border-l-gray-500 animate-spin"></span>
-                    </div>
+                    :<Spinner/>
                 }
             </div>
         </div>
