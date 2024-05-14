@@ -1,11 +1,13 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-children-prop */
 import { useForm } from "react-hook-form";
 import img1 from "../assets/images/work-steps.png"
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { alertError } from "../functions/alerts";
-import { useGoogleLogin } from "@react-oauth/google";
-import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import LoginWithFacebook from "../components/LoginFacebook";
+import LoginGoogle from "../components/LoginGoogle";
 
 const Login = () => {
     const myUrl = useNavigate();
@@ -25,19 +27,6 @@ const Login = () => {
             alertError("Email or Password is incorrect!")
         });
     }
-    const login = useGoogleLogin({
-        onSuccess: tokenResponse => {
-            axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenResponse.access_token}`,{
-            headers : {
-                Authorization:`Bearer ${tokenResponse.access_token}`,
-                Accept: 'application/json',
-            }
-            }).then((res)=>{
-                console.log(res)
-                // onSubmit(res.data)
-            })
-        },
-    });
     return (
         <div className="flex justify-center py-5 h-[100vh]">
             <div className="container">
@@ -46,18 +35,10 @@ const Login = () => {
                         <h2 className="text-3xl font-bold text-center">LogIn</h2>
                         <div className="flex gap-3 mt-3">
                             <div className="w-full">
-                                <button className="text-red-500 flex items-center justify-center gap-2 font-semibold py-1 border border-red-500 rounded w-full" 
-                                onClick={()=>login()}>
-                                    <FaGoogle />
-                                    Google
-                                </button>
+                                <LoginGoogle/>
                             </div>
                             <div className="w-full">
-                                <button className="text-blue-500 flex items-center justify-center gap-2 py-1 font-semibold border border-blue-500 rounded w-full"
-                                >
-                                    <FaFacebookF />
-                                    Facebook
-                                </button>
+                                <LoginWithFacebook />
                             </div>
                         </div>
                         <form action="" onSubmit={handleSubmit(onSubmit)} className="mt-2">
