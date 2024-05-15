@@ -12,6 +12,7 @@ import Forbidden from "./pages/Forbidden";
 import Profile from "./pages/Profile";
 import OrderDone from "./pages/OrderDone";
 import Wishlist from "./pages/Wishlist";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route  path="/reset-password" element={<ResetPassword/>}/>
         <Route path="forbidden" element={<Forbidden />} />
         <Route element={<SaveRoute />}>
           <Route path="store" element={<MyStore />} />

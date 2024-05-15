@@ -56,6 +56,7 @@ const Login = () => {
                                     <p className="h-5 text-red-500 animate-bounce">Password is required</p>
                                 }
                             </div>
+                            <p className="text-sm capitalize font-semibold">forget password? <Link to={"/reset-password"} className="text-blue-600 underline underline-offset-2">reset</Link></p>
                             <div className="flex justify-center mt-6">
                                 <button className="bg-black text-white w-[70%] h-11 rounded-md text-lg" disabled={load}>
                                     {
