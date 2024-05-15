@@ -18,7 +18,7 @@ function Header() {
 
   useEffect(() => {
     getUser(dispatch);
-  }, []);
+  }, [localStorage.token]);
 
   const myUrl = useNavigate();
   const goToCart = () => {
@@ -29,7 +29,7 @@ function Header() {
     <header className="flex flex-col items-center justify-between gap-3 p-3 py-6 shadow-lg sm:flex-row">
       <div className="logo">
         <p className="text-4xl font-bold">
-          <Link to={"/"}><img src={logo} alt="logo image" className="w-28"/></Link>
+          <Link to={"/"}><img src={logo} alt="logo image" className="w-24 h-12"/></Link>
         </p>
       </div>
       <div className="flex items-center gap-8">
