@@ -57,7 +57,7 @@ const Comment = ({ comment,setComment }) => {
         </div>
         <div>
           <div>
-          <p className="font-semibold">{comment.user.username}</p>
+          <p className="font-semibold">{comment.user.username || comment.user.name}</p>
           <p className="text-[11px] font-semibold text-gray-500">{dataTime}</p>
           </div>
           <p className="flex items-center gap-1 text-xl font-bold text-yellow-400">
