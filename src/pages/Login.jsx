@@ -37,9 +37,9 @@ const Login = () => {
                             <div className="w-full">
                                 <LoginGoogle/>
                             </div>
-                            <div className="w-full">
+                            {/* <div className="w-full">
                                 <LoginWithFacebook />
-                            </div>
+                            </div> */}
                         </div>
                         <form action="" onSubmit={handleSubmit(onSubmit)} className="mt-2">
                             <div className="mt-3">

@@ -47,7 +47,7 @@ function Header() {
           </ul>
         </nav>
         <div className="flex items-center font-semibold capitalize">
-          {user.name ? (
+          {user.email ? (
             <>
               <Link
                 onClick={() => goToCart()}
