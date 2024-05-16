@@ -11,7 +11,7 @@ export default function ProductComments() {
   const { id } = useParams();
   //   console.log(id);
   const { data, isLoading, isError } = useGetProcutReviewsQuery(id);
-  console.log(data, isLoading, isError);
+  // console.log(data, isLoading, isError);
   const [comment, setComment] = useState(null);
   const reviews = data?.data?.map((r) => {
     return <Comment key={r._id} comment={r} setComment={setComment} />;

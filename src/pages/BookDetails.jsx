@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import ProductComments from "../components/ProductComments";
 import Spinner from "../components/Spinner";
 import AddToWishlist from "../components/AddToWishlist";
+import Share from "../components/Share";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -28,6 +29,7 @@ const BookDetails = () => {
           {book.title ? (
             <div className="max-w-[700px] mx-auto mb-6">
               <div className="bg-gray-200 relative mb-6 rounded-md flex flex-col sm:flex-row items-center">
+                <Share prodId={id}/>
                 <AddToWishlist prodId={book._id}/>
                 <img src={book.imageCover} alt={book.title} />
                 <div className="pb-5 pl-5 pr-5 sm:p-0 sm:pr-5">

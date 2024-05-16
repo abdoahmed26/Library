@@ -1,38 +1,22 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { checkout } from "../functions/checkout";
+import ApplyCoupon from "./ApplyCoupon";
 
 export default function CheckOut() {
   const fullCart = useSelector((state) => state.cart);
-  const cart = fullCart.cartItems
-  // console.log(fullCart)
+  console.log(fullCart)
   let sum = 0;
-  cart.map((ele) => (sum += ele.price * Number(ele.quantity)));
   const discount = sum - fullCart.totalCartpriceAfterDiscount || 0;
 
   return (
     <div className="mx-auto w-fit">
-      <div className="p-3 px-2 border border-gray-400 rounded-md">
-        <form action="">
-          <p className="font-bold" htmlFor="coupon">
-            Have Coupon ?
-          </p>
-          <input
-            type="text"
-            className="lg:w-[170px] xl:w-fit border-2 border-black rounded-md px-1 outline-none"
-            name="coupon"
-            id="coupon"
-          />
-          <button className="px-2 py-1 ml-2 text-white bg-black rounded-md">
-            apply
-          </button>
-        </form>
-      </div>
+    <ApplyCoupon cartId = {fullCart._id}/>
       <div className="p-3 px-2 mt-4 border border-gray-400 rounded-md">
         <div className="pb-4 border-b-2 border-b-gray-400">
           <p className="flex justify-between font-bold">
             <span>Total Price :</span>
-            <span>${sum.toFixed(2)}</span>
+            <span>${fullCart.totalCartPrice}</span>
           </p>
           <p className="flex justify-between font-bold">
             <span>Discount :</span>
@@ -44,7 +28,7 @@ export default function CheckOut() {
         <div className="pt-4">
           <p className="flex justify-between font-bold">
             <span>Price After Discount:</span>
-            <span>${(sum - discount).toFixed(2)}</span>
+            <span>$ {fullCart.totalCartPriceAfterDiscount || fullCart.totalCartPrice}</span>
           </p>
           <div className="flex flex-col gap-3 mt-5">
             <button

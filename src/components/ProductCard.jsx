@@ -5,6 +5,7 @@ import defaultImage from "../assets/images/DfImage.png";
 import AddToWishlist from "../components/AddToWishlist";
 import AddToCart from "./AddToCart";
 import { Link } from "react-router-dom";
+import Share from "./Share";
 
 export default function ProductCard({ ele }) {
   return (
@@ -13,6 +14,7 @@ export default function ProductCard({ ele }) {
       className=" relative pb-2 text-center bg-gray-100 rounded-md shadow-lg"
     >
       <AddToWishlist prodId={ele._id} />
+      <Share prodId={ele._id}/>
       <Link to={`/bookDetails/${ele._id}`}>
         <img
           src={ele.imageCover || defaultImage}
