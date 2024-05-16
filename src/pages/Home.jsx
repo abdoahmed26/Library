@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 export default function Home () {
     return (
         <main>
-            <section className="container grid items-center gap-3 px-4 py-10 m-auto text-center md:grid-cols-2 lg:px-10 md:text-left" style={{background:"linear-gradient(110deg, rgba(255,255,255,1) 50%, rgba(240,240,240,1) 50%)"}}>
+            <section className="grid items-center gap-3 px-4 py-10 m-auto text-center md:grid-cols-2 lg:px-10 md:text-left" style={{background:"linear-gradient(110deg, rgba(255,255,255,1) 50%, rgba(240,240,240,1) 50%)"}}>
                 <div>
                     <h1 className="text-2xl font-bold capitalize md:text-3xl lg:text-4xl">welcome in your comfort zone</h1>
                     <p className="text-xl font-bold text-gray-400 capitalize md:text-2xl lg:text-3xl">all you need in one place</p>

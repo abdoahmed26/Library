@@ -20,7 +20,6 @@ const Login = () => {
             localStorage.token = res.data.token;
             document.cookie = "token=" + res.data.token;
             myUrl("/")
-            window.location.reload();
             setLoad(false);
         }).catch(()=>{
             setLoad(false);
@@ -34,7 +33,7 @@ const Login = () => {
                     <div className="w-[500px] shadow-xl shadow-slate-400 bg-white rounded-md p-5 px-10">
                         <h2 className="text-3xl font-bold text-center">LogIn</h2>
                         <div className="flex gap-3 mt-3">
-                            <div className="w-full">
+                            <div className="w-[50%] mx-auto">
                                 <LoginGoogle/>
                             </div>
                             {/* <div className="w-full">
@@ -56,8 +55,8 @@ const Login = () => {
                                     <p className="h-5 text-red-500 animate-bounce">Password is required</p>
                                 }
                             </div>
-                            <p className="text-sm capitalize font-semibold">forget password? <Link to={"/reset-password"} className="text-blue-600 underline underline-offset-2">reset</Link></p>
-                            <div className="flex justify-center mt-6">
+                            <p className="text-sm capitalize font-semibold mt-2">forget password? <Link to={"/reset-password"} className="text-blue-600 underline underline-offset-2">reset</Link></p>
+                            <div className="flex justify-center mt-4">
                                 <button className="bg-black text-white w-[70%] h-11 rounded-md text-lg" disabled={load}>
                                     {
                                         load ? 

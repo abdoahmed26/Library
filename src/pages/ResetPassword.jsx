@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +9,7 @@ import Spinner from "../components/Spinner";
 export default function ResetPassword() {
   const [currentState, setCurrentState] = useState({});
   const [stageNumber, setStageNumber] = useState(1);
+  const [LoadingFirst, setLoadingFirst] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const myUrl = useNavigate();
   useEffect(() => {
@@ -19,7 +22,7 @@ export default function ResetPassword() {
     }
   }, []);
 
-  console.log(currentState, stageNumber);
+  // console.log(currentState, stageNumber);
 
   const handleFirstStageSubmit = (e) => {
     e.preventDefault();
@@ -27,14 +30,14 @@ export default function ResetPassword() {
       fireToast("enter email", "error");
       return;
     }
-    setLoading(true);
+    setLoadingFirst(true);
     localStorage.resetCode = "";
     axios
       .post(`https://ecommerce-api-hlp7.onrender.com/api/auth/forgetPassword`, {
         email: currentState.email,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         fireToast("a code was sent to your email");
         localStorage.email = currentState.email;
         setStageNumber(2);
@@ -43,7 +46,7 @@ export default function ResetPassword() {
         console.log(e);
         fireToast("error occurred while reset password", "error");
       })
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingFirst(false));
   };
   const handleSecondStageSubmit = (e) => {
     e.preventDefault();
@@ -57,7 +60,7 @@ export default function ResetPassword() {
         resetCode: currentState.resetCode,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         fireToast("code is submitted successfylly");
         localStorage.resetCode = currentState.resetCode;
         setStageNumber(3);
@@ -89,7 +92,7 @@ export default function ResetPassword() {
         email: currentState.email,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         fireToast("password is reset sussefully");
         localStorage.removeItem("email");
         localStorage.removeItem("resetCode");
@@ -98,7 +101,7 @@ export default function ResetPassword() {
         setStageNumber(3);
       })
       .catch((e) => {
-        console.log(e);
+        // console.log(e);
         const errorMsg =
           e?.response?.data?.message || "error occurred while reset password";
         fireToast(errorMsg, "error");
@@ -153,9 +156,9 @@ export default function ResetPassword() {
           <button
             type="submit"
             className="block bg-black  text-white capitalize font-semibold mt-2 p-2 rounded w-80"
-            disabled={isLoading}
+            disabled={LoadingFirst}
           >
-            {isLoading ? <Spinner /> : "send reset code"}
+            {LoadingFirst ? <Spinner /> : "send reset code"}
           </button>
         </form>
       )}
@@ -180,10 +183,10 @@ export default function ResetPassword() {
           </button>
           <button
             onClick={handleFirstStageSubmit}
-            disabled={isLoading}
+            disabled={LoadingFirst}
             className="block bg-black text-white capitalize font-semibold mt-2 p-2 rounded w-80"
           >
-            {isLoading ? <Spinner /> : " Resend code"}
+            {LoadingFirst ? <Spinner /> : " Resend code"}
           </button>
         </form>
       )}
