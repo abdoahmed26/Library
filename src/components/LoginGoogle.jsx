@@ -30,7 +30,7 @@ const LoginGoogle = () => {
           };
 
           axios
-            .post("http://localhost:5000/api/auth/google", data)
+            .post("https://ecommerce-api-hlp7.onrender.com/api/auth/google", data)
             .then((res) => {
               console.log(res);
               localStorage.token = res.data.token;
