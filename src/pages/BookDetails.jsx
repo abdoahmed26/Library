@@ -32,7 +32,7 @@ const BookDetails = () => {
               <div className="bg-gray-200 relative mb-6 rounded-md flex flex-col sm:flex-row items-center">
                 <Share prodId={id}/>
                 {user.role !== "admin" && <AddToWishlist prodId={book._id}/>}
-                <img src={book.imageCover} alt={book.title} />
+                <img src={book.imageCover || book.image} alt={book.title} className="w-56 max-w-100"/>
                 <div className="pb-5 pl-5 pr-5 sm:p-0 sm:pr-5">
                   <div className="flex flex-col gap-3">
                     <h1 className="text-lg font-bold">{book.title}</h1>

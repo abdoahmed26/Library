@@ -19,7 +19,7 @@ export default function ProductCard({ ele }) {
       <Share prodId={ele._id}/>
       <Link to={`/bookDetails/${ele._id}`}>
         <img
-          src={ele.imageCover || defaultImage}
+          src={ele.imageCover ||ele.image|| defaultImage}
           alt={ele.title}
           className="w-full rounded-t-md"
         />

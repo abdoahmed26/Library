@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetCategoriesQuery } from "../redux/productsSlice";
 import DefaultImg from "../assets/images/default-book.png"
 
-const FormProduct = ({ele}) => {
+const FormProduct = ({ele, type}) => {
     const { data, error, isLoading } = useGetCategoriesQuery();
     const [myData,setData] = useState({}) 
     const [load,setload] = useState(false)
@@ -27,7 +27,8 @@ const FormProduct = ({ele}) => {
         console.log(book)
         axios.post("https://ecommerce-api-hlp7.onrender.com/api/product",book,{
             headers : {
-                Authorization:`Bearer ${localStorage.token}`
+                Authorization:`Bearer ${localStorage.token}`,
+                "Content-Type":"multipart/form-data"
             }
         }).then((res)=>{
             console.log(res)
@@ -35,11 +36,13 @@ const FormProduct = ({ele}) => {
             // window.location.reload()
         })
     }
+    console.log(ele)
     const update = ()=>{
         console.log(myData);
         axios.put(`https://ecommerce-api-hlp7.onrender.com/api/product/${ele._id}`,myData,{
             headers : {
-                Authorization:`Bearer ${localStorage.token}`
+                Authorization:`Bearer ${localStorage.token}`,
+                "Content-Type":"multipart/form-data"
             }
         }).then((res)=>{
             console.log(res)
@@ -124,7 +127,7 @@ const FormProduct = ({ele}) => {
                         </div>
                         {
                             ele ? 
-                            <button type="button" onClick={()=>update()} className="p-2 px-3 font-bold text-white bg-blue-500 rounded-md mt-3">
+                            <button type="button" onClick={update} className="p-2 px-3 font-bold text-white bg-blue-500 rounded-md mt-3">
                                 {
                                     load?
                                         <div className="flex justify-center">
