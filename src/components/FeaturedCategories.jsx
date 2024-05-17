@@ -23,6 +23,7 @@ export default function FeaturedCategories() {
               key={category._id}
               title={category.name}
               image={category.image}
+              id={category._id}
             />
           ))}
         </div>
@@ -32,7 +33,7 @@ export default function FeaturedCategories() {
 }
 
 // eslint-disable-next-line react/prop-types
-const CategoryCard = ({ title, image }) => {
+const CategoryCard = ({ title, image,id }) => {
   return (
     <div className="p-3 text-center rounded-lg bg-slate-100">
       <img
@@ -42,7 +43,7 @@ const CategoryCard = ({ title, image }) => {
       />
       <h3 className="text-lg font-bold">{title}</h3>
       <Link
-        to={"/store"}
+        to={`/store?category=${id}`}
         className="text-sm font-semibold text-gray-600 hover:underline underline-offset-4"
       >
         shop now
