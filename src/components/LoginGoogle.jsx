@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { fireToast } from "../functions/alerts";
-import Spinner from "../components/Spinner";
+
 const LoginGoogle = () => {
   const [isLoading, setLoading] = useState(false);
   const myUrl = useNavigate();

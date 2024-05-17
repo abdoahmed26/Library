@@ -11,6 +11,7 @@ import ProductComments from "../components/ProductComments";
 import Spinner from "../components/Spinner";
 import AddToWishlist from "../components/AddToWishlist";
 import Share from "../components/Share";
+import UpdateDeleteProduct from "../admin/Update&DeleteProduct";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -20,7 +21,7 @@ const BookDetails = () => {
       .get(`https://ecommerce-api-hlp7.onrender.com/api/product/${id}`)
       .then((res) => setBook(res.data.data));
   }, [id]);
-  const cart = useSelector((state) => state.cart);
+  const user = useSelector(state=>state.user);
   const des = "Lorem ipsum dolor sit amet consectetur adipisicing elit.";
   return (
     <div className="container m-auto">
@@ -30,7 +31,7 @@ const BookDetails = () => {
             <div className="max-w-[700px] mx-auto mb-6">
               <div className="bg-gray-200 relative mb-6 rounded-md flex flex-col sm:flex-row items-center">
                 <Share prodId={id}/>
-                <AddToWishlist prodId={book._id}/>
+                {user.role !== "admin" && <AddToWishlist prodId={book._id}/>}
                 <img src={book.imageCover} alt={book.title} />
                 <div className="pb-5 pl-5 pr-5 sm:p-0 sm:pr-5">
                   <div className="flex flex-col gap-3">
@@ -42,14 +43,12 @@ const BookDetails = () => {
                       ${book.price}
                     </p>
                     <p className="flex items-center gap-1 text-lg font-bold text-yellow-400">
-                      {(book.ratingsAverage).toFixed(1)} <FaStar className="text-sm" />
+                      {(book.ratingsAverage)|| 1.0} <FaStar className="text-sm" />
                     </p>
-                    <AddToCart
-                      ele={book}
-                      isInCart={cart.cartItems?.some(
-                        (e) => e.product === book._id
-                      )}
-                    />
+                    {user.role !== "admin" && 
+                      <AddToCart ele={book}/>
+                    }
+                    {user.role === "admin" && <UpdateDeleteProduct ele={book}/>}
                   </div>
                 </div>
               </div>

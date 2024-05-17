@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom";
-import { FaSignInAlt, FaUser } from "react-icons/fa";
+import { FaPlus, FaSignInAlt, FaUser } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import AccountSignOut from "./Account&SignOut";
@@ -49,15 +49,24 @@ function Header() {
         <div className="flex items-center font-semibold capitalize">
           {user.email ? (
             <>
-              <Link
-                onClick={() => goToCart()}
-                className="inline-block text-[26px] mr-5 relative"
-              >
-                <FaCartShopping />
-                <span className="absolute px-1 text-xs text-white bg-red-500 rounded-full -top-2 -right-1">
-                  {cart.cartItems?.length}
-                </span>
-              </Link>
+              {
+                user.role === 'admin'?
+                <Link to={"/AddProduct"}
+                  className="flex items-center bg-blue-500 text-white px-2 rounded-md gap-1 mr-5 relative"
+                >
+                  <FaPlus className="text-[15px]"/>
+                  <span>Add</span>
+                </Link>
+                :<Link
+                  onClick={() => goToCart()}
+                  className="inline-block text-[26px] mr-5 relative"
+                >
+                  <FaCartShopping />
+                  <span className="absolute px-1 text-xs text-white bg-red-500 rounded-full -top-2 -right-1">
+                    {cart.cartItems?.length}
+                  </span>
+                </Link>
+              }
 
               <Link
                 // onMouseDown={() => setApp("block")}
@@ -73,7 +82,7 @@ function Header() {
                 ) : (
                   <FaUser className="text-[20px] mx-auto" />
                 )}
-                <span className="text-[.7em]">{user.username || user.name}</span>
+                <span className="text-[.7em]">{user.username.split("" || "_")[0] || user.name.split("" || "_")[0]}</span>
                 <AccountSignOut appear={appear} />
               </Link>
             </>

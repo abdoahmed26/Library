@@ -13,6 +13,8 @@ import Profile from "./pages/Profile";
 import OrderDone from "./pages/OrderDone";
 import Wishlist from "./pages/Wishlist";
 import ResetPassword from "./pages/ResetPassword";
+import Update from "./admin/Update";
+import Add from "./admin/Add";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="order-done" element={<OrderDone />} />
           <Route path="wishlist" element={<Wishlist/>} />
+          <Route path="AddProduct" element={<Add/>} />
+          <Route path="UpdateProduct/:id" element={<Update />} />
         </Route>
       </Routes>
       </div>

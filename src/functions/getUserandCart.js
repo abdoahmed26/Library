@@ -11,6 +11,7 @@ export const getUser = (dispatch)=>{
                 Authorization:`Bearer ${localStorage.token}`
             }
         }).then((res)=>{
+            // console.log(res)
             dispatch(addUser(res.data.data))
         }).catch(()=>localStorage.removeItem("token"))
         axios.get("https://ecommerce-api-hlp7.onrender.com/api/cart",{

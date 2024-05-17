@@ -19,6 +19,7 @@ const Login = () => {
         .then((res)=>{
             localStorage.token = res.data.token;
             document.cookie = "token=" + res.data.token;
+            // console.log(res)
             myUrl("/")
             setLoad(false);
         }).catch(()=>{

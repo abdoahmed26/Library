@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 import { BiShare } from "react-icons/bi";
 import {
   FacebookIcon,
@@ -30,7 +31,7 @@ export default function Share({ prodId }) {
         <BiShare />
       </button>
       {open && (
-        <div className="flex p-1 border justify-start align-middle gap-1 bg-white shadow-lg w-48  absolute bottom-full left-0 rounded-3xl">
+        <div className="flex p-1 px-2 w-fit border justify-start align-middle gap-1 bg-white shadow-lg absolute bottom-full left-0 rounded-3xl">
           <FacebookShareButton url={shareUrl}>
             <FacebookIcon size={30} round />
           </FacebookShareButton>

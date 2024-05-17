@@ -25,7 +25,7 @@ const MyStore = () => {
   const [searchQuery, setSearchQuery] = useState([...searchParams.entries()]);
   const [reload, setReload] = useState(0);
   const { data, error, isLoading, refetch } = useGetProductsQuery(searchQuery);
-
+  // console.log(data.data);
   useEffect(() => {
     setSearchQuery([...searchParams.entries()]);
     refetch();

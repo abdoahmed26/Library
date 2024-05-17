@@ -3,6 +3,7 @@ import defaultImage from "../assets/images/default-book.png";
 import { useGetCategoriesQuery } from "../redux/productsSlice";
 export default function FeaturedCategories() {
   const { data, error, isLoading } = useGetCategoriesQuery();
+  // console.log(data);
   return (
     <div className="container m-auto">
       <h2 className="mb-10 text-3xl font-bold text-center">
