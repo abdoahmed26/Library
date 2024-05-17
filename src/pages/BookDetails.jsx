@@ -43,7 +43,7 @@ const BookDetails = () => {
                       ${book.price}
                     </p>
                     <p className="flex items-center gap-1 text-lg font-bold text-yellow-400">
-                      {(book.ratingsAverage)|| 1.0} <FaStar className="text-sm" />
+                      {book?.ratingsAverage?.toFixed(1) || 0} <FaStar className="text-sm" />
                     </p>
                     {user.role !== "admin" && 
                       <AddToCart ele={book}/>
