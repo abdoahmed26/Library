@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useGetCategoriesQuery } from "../redux/productsSlice";
+import DefaultImg from "../assets/images/default-book.png"
 
 const FormProduct = ({ele}) => {
     const { data, error, isLoading } = useGetCategoriesQuery();
@@ -14,47 +15,37 @@ const FormProduct = ({ele}) => {
     const {register,handleSubmit,formState:{ errors }} = useForm();
     const onSubmit = (data) => {
         setload(true)
-        // console.log(data)
-        if(ele){
-            const book = {
-                image: data.imageCover[0],
-                title: data.title,
-                price: +data.price,
-                quantity: +data.quantity,
-                category: data.category,
-                description: data.description,
-            }
-            console.log(book)
-            axios.put(`https://ecommerce-api-hlp7.onrender.com/api/product/${ele._id}`,book,{
-                headers : {
-                    Authorization:`Bearer ${localStorage.token}`
-                }
-            }).then((res)=>{
-                console.log(res)
-                // myUrl("/store")
-                // window.location.reload()
-            })
+        console.log(myData)
+        const book = {
+            image: myData.imageCover,
+            title: data.title,
+            price: +data.price,
+            quantity: +data.quantity,
+            category: data.category,
+            description: data.description,
         }
-        else{
-            const book = {
-                image: data.imageCover[0],
-                title: data.title,
-                price: +data.price,
-                quantity: +data.quantity,
-                category: data.category,
-                description: data.description,
+        console.log(book)
+        axios.post("https://ecommerce-api-hlp7.onrender.com/api/product",book,{
+            headers : {
+                Authorization:`Bearer ${localStorage.token}`
             }
-            console.log(book)
-            axios.post("https://ecommerce-api-hlp7.onrender.com/api/product",book,{
-                headers : {
-                    Authorization:`Bearer ${localStorage.token}`
-                }
-            }).then((res)=>{
-                console.log(res)
-                // myUrl("/store")
-                // window.location.reload()
-            })
-        }
+        }).then((res)=>{
+            console.log(res)
+            // myUrl("/store")
+            // window.location.reload()
+        })
+    }
+    const update = ()=>{
+        console.log(myData);
+        axios.put(`https://ecommerce-api-hlp7.onrender.com/api/product/${ele._id}`,myData,{
+            headers : {
+                Authorization:`Bearer ${localStorage.token}`
+            }
+        }).then((res)=>{
+            console.log(res)
+            // myUrl("/store")
+            // window.location.reload()
+        })
     }
     return (
         <div className="flex justify-center py-10">
@@ -62,24 +53,27 @@ const FormProduct = ({ele}) => {
                 <div className="max-w-[500px] mx-auto shadow-xl shadow-slate-400 bg-white rounded-md p-5 sm:px-10">
                     <h1 className="text-2xl font-bold text-center">{ele ? "Update Book" : "Add Book"}</h1>
                     <form action="" onSubmit={handleSubmit(onSubmit)} className="mt-5">
-                        <div className="">
+                        <div className="flex justify-between">
                             <label htmlFor="imageCover" className="p-2 px-3 w-fit font-bold text-white bg-black rounded-md cursor-pointer">
                                 Choose a File
                             </label>
-                            <input type="file" className="hidden" name="image" id="imageCover" onInput={(e)=>setData({imageCover:e.target.value})} {...register("imageCover")}/>
-                            {/* <input type="text" defaultValue={ele?.imageCover} id="imageCover"  className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" /> */}
-                            <div className="w-full mt-3">
-                                <p className="h-10 px-2 border-2 border-gray-400 rounded-lg outline-none">{myData.imageCover || ele?.imageCover}</p>
-                                {errors.imageCover?.message &&
-                                    <p className="h-5 text-red-500 animate-bounce">{errors.imageCover?.message}</p>
-                                }
+                            <input type="file" className="hidden" name="image" id="imageCover" onChange={(e) => setData({...myData,imageCover:e.target.files[0]})}/>
+                            <div className="">
+                                <img
+                                    src={
+                                        myData.imageCover ? URL.createObjectURL(myData.imageCover)
+                                        : ele ? ele?.imageCover
+                                        : DefaultImg
+                                    }
+                                    className="w-10 h-10 aspect-square inline-block"
+                                ></img>
                             </div>
                         </div>
                         <div className="mt-3">
                             <label htmlFor="title" >
                                 Title
                             </label>
-                            <input type="text" defaultValue={ele?.title} id="title" {...register("title", { required: "Title is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" />
+                            <input type="text" defaultValue={ele?.title} onInput={(e)=>setData({...myData,title:e.target.value})} id="title" {...register("title", { required: "Title is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" />
                             {errors.title?.message &&
                                 <p className="h-5 text-red-500 animate-bounce">{errors.title?.message}</p>
                             }
@@ -88,7 +82,7 @@ const FormProduct = ({ele}) => {
                             <label htmlFor="price" >
                                 Price
                             </label>
-                            <input type="text" defaultValue={ele?.price} id="price" {...register("price", { required: "Price is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" />
+                            <input type="text" defaultValue={ele?.price} onInput={(e)=>setData({...myData,price:+e.target.value})} id="price" {...register("price", { required: "Price is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" />
                             {errors.price?.message &&
                                 <p className="h-5 text-red-500 animate-bounce">{errors.price?.message}</p>
                             }
@@ -97,7 +91,7 @@ const FormProduct = ({ele}) => {
                             <label htmlFor="quantity" >
                                 Quantity
                             </label>
-                            <input type="text" defaultValue={ele?.quantity} id="quantity" {...register("quantity", { required: "Quantity is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" />
+                            <input type="text" defaultValue={ele?.quantity} onInput={(e)=>setData({...myData,quantity:+e.target.value})} id="quantity" {...register("quantity", { required: "Quantity is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" />
                             {errors.quantity?.message &&
                                 <p className="h-5 text-red-500 animate-bounce">{errors.quantity?.message}</p>
                             }
@@ -106,7 +100,7 @@ const FormProduct = ({ele}) => {
                             <label htmlFor="category" >
                                 Category
                             </label>
-                            <select name="category" defaultValue={ele?.category} id="category" {...register("category", { required: "Category is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none">
+                            <select name="category" defaultValue={ele?.category} onInput={(e)=>setData({...myData,category:e.target.value})} id="category" {...register("category", { required: "Category is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none">
                                 {isLoading ? (
                                         <div className="flex justify-center">
                                             <span className="inline-block border-2 border-black rounded-full w-7 h-7 border-l-gray-500 animate-spin"></span>
@@ -123,14 +117,14 @@ const FormProduct = ({ele}) => {
                             <label htmlFor="des" >
                                 Description
                             </label>
-                            <textarea defaultValue={ele?.description} id="des" {...register("description", { required: "Description is required" })} className="w-full h-16 py-1 px-2 border-2 border-gray-400 rounded-lg outline-none resize-none" />
+                            <textarea defaultValue={ele?.description} onInput={(e)=>setData({...myData,description:e.target.value})} id="des" {...register("description", { required: "Description is required" })} className="w-full h-16 py-1 px-2 border-2 border-gray-400 rounded-lg outline-none resize-none" />
                             {errors.description?.message &&
                                 <p className="h-5 text-red-500 animate-bounce">{errors.description?.message}</p>
                             }
                         </div>
                         {
                             ele ? 
-                            <button className="p-2 px-3 font-bold text-white bg-blue-500 rounded-md mt-3">
+                            <button type="button" onClick={()=>update()} className="p-2 px-3 font-bold text-white bg-blue-500 rounded-md mt-3">
                                 {
                                     load?
                                         <div className="flex justify-center">

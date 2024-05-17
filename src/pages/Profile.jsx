@@ -20,6 +20,7 @@ const Profile = () => {
   const [img, setImg] = useState(null);
   const onSubmit = (data) => {
     setLoad(true);
+    console.log(img);
     const firstData = {
       username: data.name || undefined,
       email: data.email === user.email ? undefined : data.email || undefined,
@@ -42,7 +43,7 @@ const Profile = () => {
       })
       .catch(() => alertError("something wrong"))
       .finally(() => {
-        window.location.reload();
+        // window.location.reload();
       });
   };
   return (

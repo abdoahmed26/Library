@@ -5,7 +5,7 @@ import ApplyCoupon from "./ApplyCoupon";
 
 export default function CheckOut() {
   const fullCart = useSelector((state) => state.cart);
-  console.log(fullCart)
+  // console.log(fullCart)
   let sum = 0;
   const discount = sum - fullCart.totalCartpriceAfterDiscount || 0;
 

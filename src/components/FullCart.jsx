@@ -40,7 +40,7 @@ const FullCart = () => {
                       </td>
                       <td>
                         <h1 className="text-xl font-bold text-center">
-                          {ele.product?.title.slice(0,10)}...
+                          {ele?.product?.title?.slice(0,10)}...
                         </h1>
                       </td>
                       <td>
