@@ -28,7 +28,7 @@ export default function ProductCard({ ele }) {
         <h1 className="text-lg font-bold">{ele.title.slice(0, 10)}...</h1>
         <div className="flex justify-between">
           <p className="flex items-center justify-center gap-1 text-lg font-bold text-yellow-400">
-            {(ele.ratingsAverage) || 1.0} <FaStar className="text-sm" />
+            {ele?.ratingsAverage?.toFixed(1) || 0} <FaStar className="text-sm" />
           </p>
           <p className="text-sm font-semibold">
             {ele.quantity > 0 ? `avl ${ele.quantity}`: `will be avil soon`}
