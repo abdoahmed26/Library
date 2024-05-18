@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useGetCategoriesQuery } from "../redux/productsSlice";
 import DefaultImg from "../assets/images/default-book.png"
+import { fireToast } from "../functions/alerts";
 
 const FormProduct = ({ele}) => {
     const { data, error, isLoading } = useGetCategoriesQuery();
@@ -32,9 +33,11 @@ const FormProduct = ({ele}) => {
             }
         }).then((res)=>{
             console.log(res)
-            myUrl("/store")
-            window.location.reload()
-        })
+            fireToast("product Added")
+        }).catch(()=>fireToast("faild to Add product", "error"))
+        .finally(()=>{
+            setload(false)
+        });
     }
     const update = ()=>{
         setload(true)
@@ -46,9 +49,11 @@ const FormProduct = ({ele}) => {
             }
         }).then((res)=>{
             console.log(res)
-            myUrl("/store")
-            window.location.reload()
-        })
+            fireToast("product updated")
+        }).catch(()=>fireToast("faild to update product", "error"))
+        .finally(()=>{
+            setload(false)
+        });
     }
     return (
         <div className="flex justify-center py-10">
