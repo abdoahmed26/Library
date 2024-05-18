@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FormProduct from "./FormProduct";
 import Spinner from "../components/Spinner";
+import UpdateProductForm from "./UpdateProductForm";
 
 const Update = () => {
     const { id } = useParams();
@@ -14,7 +15,7 @@ const Update = () => {
     return (
         <div>
             {
-                book.title? <FormProduct ele={book} /> 
+                book.title? <UpdateProductForm ele={book} /> 
                 :<div className="pt-10"><Spinner/></div>
             }
         </div>

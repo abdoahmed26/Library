@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import { fireToast } from "../functions/alerts";
 import axios from "axios";
 import Spinner from "./Spinner"
+import { useDispatch, useSelector } from "react-redux";
+import { getBook } from "../redux/CartSlice";
 export default function ApplyCoupon({ cartId }) {
   const [coupon, setCoupon] = useState("");
   const [isLoading, setLoading] = useState(false);
+  const cart = useSelector(state=>state.cart);
+  console.log(cart)
+  const dispatch = useDispatch()
   const applyCoupon = (e) => {
     e.preventDefault();
     if (!coupon) {
@@ -15,7 +20,7 @@ export default function ApplyCoupon({ cartId }) {
 
     axios
       .post(
-        `http://localhost:5000/api/cart/${cartId}/applyCoupon`,
+        `https://ecommerce-api-hlp7.onrender.com/api/cart/${cartId}/applyCoupon`,
         { coupon },
         {
           headers: {
@@ -24,11 +29,13 @@ export default function ApplyCoupon({ cartId }) {
         }
       )
       .then((res) => {
-        console.log(res);
+        console.log(res.data.data);
+        fireToast("coupon added")
+        location.reload()
       })
       .catch((e) => {
         console.log(e);
-        const msg = e.response.data.message || "something went wrong"
+        const msg = e?.response?.data?.message || "something went wrong"
         fireToast(msg,"error")
       })
       .finally(() => setLoading(false));
@@ -39,6 +46,7 @@ export default function ApplyCoupon({ cartId }) {
         <p className="font-bold" htmlFor="coupon">
           Have Coupon ?
         </p>
+        {cart?.coupon && <p>{cart.coupon.name}</p>}
         <input
           type="text"
           className="lg:w-[170px] xl:w-fit border-2 border-black rounded-md px-1 outline-none"

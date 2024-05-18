@@ -5,10 +5,6 @@ import ApplyCoupon from "./ApplyCoupon";
 
 export default function CheckOut() {
   const fullCart = useSelector((state) => state.cart);
-  // console.log(fullCart)
-  let sum = 0;
-  const discount = sum - fullCart.totalCartpriceAfterDiscount || 0;
-
   return (
     <div className="mx-auto w-fit">
     <ApplyCoupon cartId = {fullCart._id}/>
@@ -21,7 +17,7 @@ export default function CheckOut() {
           <p className="flex justify-between font-bold">
             <span>Discount :</span>
             <span className="text-red-500">
-              {discount}
+              {fullCart?.coupon.discount || 0}%
             </span>
           </p>
         </div>

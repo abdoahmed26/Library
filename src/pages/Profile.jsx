@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { alertError } from "../functions/alerts";
+import { alertError, fireToast } from "../functions/alerts";
 import UpdatePassword from "../components/UpdatePassword";
 import Spinner from "../components/Spinner";
 import userDefaultImg from "../assets/images/default-user-image.jpg";
@@ -39,10 +39,12 @@ const Profile = () => {
         }
       )
       .then((res) => {
+        fireToast("user updated")
         console.log(res);
       })
       .catch(() => alertError("something wrong"))
       .finally(() => {
+        setLoad(false)
         // window.location.reload();
       });
   };

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-children-prop */
 import { useForm } from "react-hook-form";
-import img1 from "../assets/images/work-steps.png"
+import img1 from "../assets/images/Reading list-bro.png"
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -72,8 +72,8 @@ const Login = () => {
                             <Link to={"/register"} className="ml-1 font-bold text-black">Sign up</Link>
                         </div>
                     </div>
-                    <div className="hidden md:inline-block">
-                        <img src={img1} alt="library" />
+                    <div className="hidden md:inline-block w-1/2">
+                        <img src={img1} alt="library" className="w-100"/>
                     </div>
                 </div>
             </div>

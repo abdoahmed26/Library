@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import FeaturedCategories from "../components/FeaturedCategories"
-import mainImage from '../assets/images/work-steps.png'
+import mainImage from '../assets/images/Reading glasses-rafiki.png'
 import { Link } from "react-router-dom"
 
 export default function Home () {
