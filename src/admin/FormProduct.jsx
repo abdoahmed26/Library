@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetCategoriesQuery } from "../redux/productsSlice";
 import DefaultImg from "../assets/images/default-book.png"
 
-const FormProduct = ({ele, type}) => {
+const FormProduct = ({ele}) => {
     const { data, error, isLoading } = useGetCategoriesQuery();
     const [myData,setData] = useState({}) 
     const [load,setload] = useState(false)
@@ -15,9 +15,9 @@ const FormProduct = ({ele, type}) => {
     const {register,handleSubmit,formState:{ errors }} = useForm();
     const onSubmit = (data) => {
         setload(true)
-        console.log(myData)
+        // console.log(myData)
         const book = {
-            image: myData.imageCover,
+            image: myData.image,
             title: data.title,
             price: +data.price,
             quantity: +data.quantity,
@@ -32,13 +32,13 @@ const FormProduct = ({ele, type}) => {
             }
         }).then((res)=>{
             console.log(res)
-            // myUrl("/store")
-            // window.location.reload()
+            myUrl("/store")
+            window.location.reload()
         })
     }
-    console.log(ele)
     const update = ()=>{
-        console.log(myData);
+        setload(true)
+        // console.log(myData);
         axios.put(`https://ecommerce-api-hlp7.onrender.com/api/product/${ele._id}`,myData,{
             headers : {
                 Authorization:`Bearer ${localStorage.token}`,
@@ -46,8 +46,8 @@ const FormProduct = ({ele, type}) => {
             }
         }).then((res)=>{
             console.log(res)
-            // myUrl("/store")
-            // window.location.reload()
+            myUrl("/store")
+            window.location.reload()
         })
     }
     return (
@@ -60,12 +60,12 @@ const FormProduct = ({ele, type}) => {
                             <label htmlFor="imageCover" className="p-2 px-3 w-fit font-bold text-white bg-black rounded-md cursor-pointer">
                                 Choose a File
                             </label>
-                            <input type="file" className="hidden" name="image" id="imageCover" onChange={(e) => setData({...myData,imageCover:e.target.files[0]})}/>
+                            <input type="file" className="hidden" name="image" id="imageCover" onChange={(e) => setData({...myData,image:e.target.files[0]})}/>
                             <div className="">
                                 <img
                                     src={
-                                        myData.imageCover ? URL.createObjectURL(myData.imageCover)
-                                        : ele ? ele?.imageCover
+                                        myData.image ? URL.createObjectURL(myData.image)
+                                        : ele ? ele?.imageCover || ele?.image
                                         : DefaultImg
                                     }
                                     className="w-10 h-10 aspect-square inline-block"
