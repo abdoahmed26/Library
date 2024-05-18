@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { fireToast } from "../functions/alerts";
 import axios from "axios";
 import Spinner from "./Spinner"
-import { useDispatch, useSelector } from "react-redux";
-import { getBook } from "../redux/CartSlice";
+import { useSelector } from "react-redux";
 export default function ApplyCoupon({ cartId }) {
   const [coupon, setCoupon] = useState("");
   const [isLoading, setLoading] = useState(false);
   const cart = useSelector(state=>state.cart);
-  console.log(cart)
-  const dispatch = useDispatch()
+  // console.log(cart)
   const applyCoupon = (e) => {
     e.preventDefault();
     if (!coupon) {
