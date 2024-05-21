@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import Swal from "sweetalert2";
 import { checkResponseStatus } from "./checkResponseStatus";
-import { deleteFromCart } from "../redux/CartSlice";
+import { getCart } from "../redux/CartSlice";
 import axios from "axios";
 
 export const alertSuccess = ()=>{
@@ -35,7 +36,7 @@ export const alertDeleted = (ele,myUrl,dispatch)=>{
                 },
             })
             .then(() => {
-                dispatch(deleteFromCart(ele))
+                dispatch(getCart())
                 Swal.fire({
                     title: "Deleted!",
                     text: "Your Book has been deleted.",

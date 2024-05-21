@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fireToast } from "../functions/alerts";
 import axios from "axios";
+import { getReview } from "../redux/ReviewSlice";
 
 const AddComment = ({ id,comment }) => {
     const [data, setData] = useState({});
     const [isLoading, setLoading] = useState(false);
     const user = useSelector((state) => state.user);
+    const dispatch = useDispatch()
     //   console.log(user)
     //   console.log(data);
     const handleSubmit = (e) => {
@@ -29,6 +31,7 @@ const AddComment = ({ id,comment }) => {
             .then((res) => {
                 console.log(res);
                 fireToast("your review added successfully");
+                dispatch(getReview(id))
             })
             .catch((err) => {
                 console.log(err);
@@ -36,7 +39,6 @@ const AddComment = ({ id,comment }) => {
             })
             .finally(() => {
                 setLoading(false);
-                window.location.reload()
             });
     };
     const update = ()=>{
@@ -51,6 +53,7 @@ const AddComment = ({ id,comment }) => {
         .then((res) => {
             console.log(res);
             fireToast("your review updated successfully");
+            dispatch(getReview(id))
         })
         .catch((err) => {
             console.log(err);
@@ -58,7 +61,6 @@ const AddComment = ({ id,comment }) => {
         })
         .finally(() => {
             setLoading(false);
-            window.location.reload()
         });
     }
     return (

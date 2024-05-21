@@ -11,7 +11,9 @@ export const addToWishlistFn = (prodId,favor,dispatch,setLoad) => {
                     Authorization: `Bearer ${localStorage.token}`,
                 },
             }
-        ).then(()=>dispatch(removeFavourite(prodId))).finally(()=>setLoad(false))
+        ).then(()=>{
+            dispatch(removeFavourite(prodId))
+        }).finally(()=>setLoad(false))
     }
     else{
         axios.post("https://ecommerce-api-hlp7.onrender.com/api/wishlist",

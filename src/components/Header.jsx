@@ -23,7 +23,6 @@ function Header() {
   const myUrl = useNavigate();
   const goToCart = () => {
     myUrl("/cart");
-    window.location.reload();
   };
   return (
     <header className="flex flex-col items-center justify-between gap-3 p-3 py-6 shadow-lg sm:flex-row">
@@ -57,15 +56,15 @@ function Header() {
                   <FaPlus className="text-[15px]"/>
                   <span>Add</span>
                 </Link>
-                :<Link
+                :<button
                   onClick={() => goToCart()}
                   className="inline-block text-[26px] mr-5 relative"
                 >
                   <FaCartShopping />
                   <span className="absolute px-1 text-xs text-white bg-red-500 rounded-full -top-2 -right-1">
-                    {cart.cartItems?.length}
+                    {cart.cartItems?.length || 0}
                   </span>
-                </Link>
+                </button>
               }
 
               <Link
@@ -82,7 +81,7 @@ function Header() {
                 ) : (
                   <FaUser className="text-[20px] mx-auto" />
                 )}
-                <span className="text-[.7em]">{user.username.split("" || "_")[0] || user.name.split("" || "_")[0]}</span>
+                <span className="text-[.7em]">{user.username.split(" " || "_")[0] || user.name.split(" " || "_")[0]}</span>
                 <AccountSignOut appear={appear} />
               </Link>
             </>

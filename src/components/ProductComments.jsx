@@ -1,38 +1,46 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetProcutReviewsQuery } from "../redux/productsSlice";
 import { FaStar } from "react-icons/fa";
 import defaultUserImg from "../assets/images/default-user-image.jpg";
 import UpdateDeleteComment from "./Update&DeleteComment";
 import AddComment from "./AddComment";
+import { getReview } from "../redux/ReviewSlice";
 export default function ProductComments() {
   const { id } = useParams();
-  //   console.log(id);
-  const { data, isLoading, isError } = useGetProcutReviewsQuery(id);
-  // console.log(data, isLoading, isError);
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(getReview(id))
+  },[id])
+  const review = useSelector(state=>state.review)
+  // console.log(review);
+  const reviewResverse = [...review].reverse()
+  // console.log(reviewResverse);
   const [comment, setComment] = useState(null);
-  const reviews = data?.data?.map((r) => {
-    return <Comment key={r._id} comment={r} setComment={setComment} />;
+  const reviews = reviewResverse?.map((r) => {
+    return <Comment key={r._id} prodId={id} comment={r} setComment={setComment} />;
   });
 
-  console.log(reviews);
+  // console.log(reviews);
 
   return (
     <div>
       {" "}
       {comment ? (
-        <AddComment id={id} comment={comment} />
+        <AddComment id={id} comment={comment} setComment={setComment} />
       ) : (
         <AddComment id={id} />
       )}
-      {data?.result === 0 ? <p>be the firest reviewer</p> : reviews}
+      {review?.length === 0 ? <p>be the firest reviewer</p> : reviews}
     </div>
   );
 }
 
-const Comment = ({ comment, setComment }) => {
+const Comment = ({prodId, comment, setComment }) => {
   const user = useSelector((state) => state.user);
   const [imgSrc, setImgSrc] = useState(
     comment.user.profileImage || defaultUserImg
@@ -42,7 +50,7 @@ const Comment = ({ comment, setComment }) => {
     new Date(comment.createdAt).toLocaleDateString() +
     " - " +
     new Date(comment.createdAt).toLocaleTimeString();
-  console.log(comment.user);
+  // console.log(comment.user);
   return (
     <div className="relative flex gap-3 sm:flex-row sm:justify-between items-center border my-3 rounded shadow-lg p-2">
       <div className="flex gap-3">
@@ -73,7 +81,7 @@ const Comment = ({ comment, setComment }) => {
       </div>
       <div>
         {comment.user._id === user._id ? (
-          <UpdateDeleteComment comment={comment} setComment={setComment} />
+          <UpdateDeleteComment id={prodId} comment={comment} setComment={setComment} />
         ) : null}
       </div>
     </div>

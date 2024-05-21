@@ -8,7 +8,7 @@ import { addCart } from "../functions/addToCart";
 
 export default function AddToCart({ ele }) {
   const cart = useSelector(state=>state.cart);
-  const pro = cart.cartItems.find(item=>item.product._id===ele._id)
+  const pro = cart.cartItems?.find(item=>item.product._id===ele._id)
   const [isLoading, setLoading] = useState(false);
   const myUrl = useNavigate();
   const dispatch = useDispatch();

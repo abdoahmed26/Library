@@ -15,7 +15,7 @@ export default function CheckOut() {
         <div className="pb-4 border-b-2 border-b-gray-400">
           <p className="flex justify-between font-bold">
             <span>Total Price :</span>
-            <span>${sum}</span>
+            <span>${sum.toFixed(2)}</span>
           </p>
           <p className="flex justify-between font-bold">
             <span>Discount :</span>
@@ -27,7 +27,7 @@ export default function CheckOut() {
         <div className="pt-4">
           <p className="flex justify-between font-bold">
             <span>Price After Discount:</span>
-            <span>$ {fullCart.totalCartPriceAfterDiscount || sum}</span>
+            <span>$ {(fullCart.totalCartPriceAfterDiscount)?.toFixed(2) || sum.toFixed(2)}</span>
           </p>
           <div className="flex flex-col gap-3 mt-5">
             <button

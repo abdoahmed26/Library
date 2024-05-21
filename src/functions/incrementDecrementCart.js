@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import { checkResponseStatus } from "./checkResponseStatus";
-import { decrement, getBook, increment } from "../redux/CartSlice";
+import { getCart } from "../redux/CartSlice";
 
 export const incrCart = (ele,myUrl,dispatch,setLoadInc) => {
     setLoadInc(true);
@@ -16,9 +16,7 @@ export const incrCart = (ele,myUrl,dispatch,setLoadInc) => {
         }
     )
     .then((res) => {
-        // console.log(res);
-        dispatch(increment(ele))
-        // dispatch(getBook(res.data.data))
+        dispatch(getCart())
     })
     .catch((e) => {
         checkResponseStatus(e, myUrl);
@@ -37,8 +35,7 @@ export const decrCart = (ele,myUrl,dispatch,setLoadDec) => {
                 Authorization: `Bearer ${localStorage.token}`,
                 },
         }).then((res) =>{
-            dispatch(decrement(ele))
-            // dispatch(getBook(res.data.data))
+            dispatch(getCart())
         })
         .catch((e) => {
             checkResponseStatus(e, myUrl);

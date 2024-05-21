@@ -1,47 +1,46 @@
 /* eslint-disable no-undef */
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const CartSlice = createSlice({
-  name: "CartSlice",
-  initialState: {_id:"",cartItems: [],
+export const getCart = createAsyncThunk("getCart/CartSlice",async()=>{
+  try{
+    const cart = await axios.get("https://ecommerce-api-hlp7.onrender.com/api/cart",{
+          headers : {
+            Authorization:`Bearer ${localStorage.token}`
+          }
+      }).then((res)=>{
+        return res.data.data
+      })
+    return cart;
+  }catch(error){
+    return ""
+  }
+})
+
+const initialState = {
+  _id:"",
+  cartItems: [],
   createdAt:"",
   totalCartPrice:"",
   updatedAt: "",
   user:"",
   __v:"",
-  },
-  reducers: {
-    deleteFromCart: (state, action) => {
-      const cartItems = state.cartItems?.filter((ele) => ele._id !== action.payload._id);
-      state.cartItems = cartItems;
-      return state;
-    },
-    deleteAll: () => {
-      return [];
-    },
-    increment: (state, action) => {
-      const pro = state.cartItems.find(
-        (ele) => ele._id === action.payload._id
-      );
-      if (pro) {
-        pro.quantity += 1;
-      }
-    },
-    decrement: (state, action) => {
-      const pro = state.cartItems.find(
-        (ele) => ele._id === action.payload._id
-      );
-      if (pro) {
-        pro.quantity > 0 ? (pro.quantity -= 1) : (pro.quantity = 0);
-      }
-    },
-    getBook : (state, action) =>{
+}
+
+const CartSlice = createSlice({
+  name: "CartSlice",
+  initialState,
+  reducers: {},
+  extraReducers: (builder)=>{
+    builder.addCase(getCart.fulfilled,(state,action)=>{
       state = action.payload
       return state;
-    }
-  },
+    })
+    builder.addCase(getCart.rejected,(state)=>{
+      state = initialState
+      return state;
+    })
+  }
 });
-
-export const { deleteFromCart, deleteAll, increment, decrement, getBook} = CartSlice.actions;
 
 export default CartSlice.reducer;

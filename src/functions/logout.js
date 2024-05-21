@@ -1,8 +1,6 @@
 import { deleteUser } from "../redux/userSlice";
 
-export const logout = (myUrl,dispatch) => {
+export const logout = (dispatch) => {
   localStorage.removeItem("token");
   dispatch(deleteUser())
-  myUrl("/");
-  window.location.reload();
 };

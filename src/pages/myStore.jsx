@@ -1,30 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { FaSearch, FaStar } from "react-icons/fa";
 import { useGetProductsQuery } from "../redux/productsSlice";
-import defaultImage from "../assets/images/DfImage.png";
-import { FaCartShopping } from "react-icons/fa6";
 import { useEffect, useState } from "react";
-import { getBook } from "../redux/CartSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import axios from "axios";
-import { checkResponseStatus } from "../functions/checkResponseStatus";
-import { debounce } from "../functions/debounce";
+import { useSearchParams } from "react-router-dom";
 import Search from "../components/Search";
-import AddToCart from "../components/AddToCart";
 import ProductCard from "../components/ProductCard";
 import Spinner from "../components/Spinner";
 
 const MyStore = () => {
-  const myUrl = useNavigate();
-  const [search, setSearch] = useState("");
-  const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState([...searchParams.entries()]);
-  const [reload, setReload] = useState(0);
-  const { data, error, isLoading, refetch } = useGetProductsQuery(searchQuery);
+  const { data, isLoading, refetch } = useGetProductsQuery(searchQuery);
   // console.log(data.data);
   useEffect(() => {
     setSearchQuery([...searchParams.entries()]);

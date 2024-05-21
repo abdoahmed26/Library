@@ -2,10 +2,13 @@
 import axios from "axios";
 import { useState } from "react";
 import { GoKebabHorizontal } from "react-icons/go";
+import { useDispatch } from "react-redux";
+import { getReview } from "../redux/ReviewSlice";
 
-const UpdateDeleteComment = ({ comment, setComment }) => {
+const UpdateDeleteComment = ({id, comment, setComment }) => {
   const [load, setLoad] = useState(false);
   const [isOpen , setOpen] = useState(false);
+  const dispatch = useDispatch()
   const deleteComment = (ele) => {
     setLoad(true);
     axios
@@ -14,8 +17,7 @@ const UpdateDeleteComment = ({ comment, setComment }) => {
           Authorization: `Bearer ${localStorage.token}`,
         },
       })
-      .then((res) => console.log(res))
-      .finally(() => window.location.reload());
+      .then(() => dispatch(getReview(id)))
   };
   const update = (ele) => {
     setComment({ ...ele });

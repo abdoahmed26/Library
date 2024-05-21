@@ -37,7 +37,6 @@ const LoginGoogle = () => {
               document.cookie = "token=" + res.data.token;
               fireToast("google login success");
               myUrl("/");
-              window.location.reload();
             })
             .catch((e) => {
               fireToast("google login faild", "error");

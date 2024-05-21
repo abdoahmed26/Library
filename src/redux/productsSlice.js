@@ -45,7 +45,7 @@ export const productsApi = createApi({
                 url:"/wishlist",
                 method:"GET",
                 headers:{
-                    Authorization:`Bearer ${localStorage.token}`,
+                  Authorization:`Bearer ${localStorage.token}`,
                 }
             }
         }
