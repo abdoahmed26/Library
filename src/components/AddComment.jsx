@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fireToast } from "../functions/alerts";
 import axios from "axios";
@@ -11,6 +11,9 @@ const AddComment = ({ id,comment }) => {
     const [isLoading, setLoading] = useState(false);
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch()
+    useEffect(()=>{
+        setData({...comment})
+    },[comment])
     //   console.log(user)
     //   console.log(data);
     const handleSubmit = (e) => {
@@ -30,8 +33,9 @@ const AddComment = ({ id,comment }) => {
             )
             .then((res) => {
                 console.log(res);
-                fireToast("your review added successfully");
                 dispatch(getReview(id))
+                setData({title:" ",rate:" "})
+                fireToast("your review added successfully");
             })
             .catch((err) => {
                 console.log(err);
@@ -52,8 +56,9 @@ const AddComment = ({ id,comment }) => {
         )
         .then((res) => {
             console.log(res);
-            fireToast("your review updated successfully");
             dispatch(getReview(id))
+            setData({title:" ",rate:" "})
+            fireToast("your review updated successfully");
         })
         .catch((err) => {
             console.log(err);
@@ -67,12 +72,12 @@ const AddComment = ({ id,comment }) => {
       <div>
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
           <input
-            type="text" defaultValue={comment?.title}
+            type="text" value={data?.title}
             className="flex-1 py-2 border-b-2 border-gray-500 focus:border-green-700 text-lg outline-none"
             onChange={(e) => setData({ ...data, title: e.target.value })}
             placeholder="Add your review"
           />
-          <select defaultValue={comment?.rate} 
+          <select value={data?.rate} 
             className="p-2 border-b-2 border-gray-500 focus:border-green-700 text-lg outline-none"
             onChange={(e) => setData({ ...data, rate: e.target.value })}
           >
