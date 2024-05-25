@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useGetCategoriesQuery } from "../redux/productsSlice";
@@ -11,6 +11,9 @@ import { fireToast } from "../functions/alerts";
 const FormProduct = ({ele}) => {
     const { data, error, isLoading } = useGetCategoriesQuery();
     const [myData,setData] = useState({}) 
+    useEffect(()=>{
+        setData({...ele})
+    },[ele])
     const [load,setload] = useState(false)
     const myUrl=useNavigate();
     const {register,handleSubmit,formState:{ errors }} = useForm();
@@ -69,8 +72,8 @@ const FormProduct = ({ele}) => {
                             <div className="">
                                 <img
                                     src={
-                                        myData.image ? URL.createObjectURL(myData.image)
-                                        : ele ? ele?.imageCover || ele?.image
+                                        ele ? ele?.imageCover || ele?.image
+                                        : myData.image ? URL.createObjectURL(myData.image)
                                         : DefaultImg
                                     }
                                     className="w-10 h-10 aspect-square inline-block"
@@ -81,7 +84,7 @@ const FormProduct = ({ele}) => {
                             <label htmlFor="title" >
                                 Title
                             </label>
-                            <input type="text" defaultValue={ele?.title} onInput={(e)=>setData({...myData,title:e.target.value})} id="title" {...register("title", { required: "Title is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" />
+                            <input type="text" value={myData?.title} onInput={(e)=>setData({...myData,title:e.target.value})} id="title" {...register("title", { required: "Title is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" />
                             {errors.title?.message &&
                                 <p className="h-5 text-red-500 animate-bounce">{errors.title?.message}</p>
                             }
@@ -90,7 +93,7 @@ const FormProduct = ({ele}) => {
                             <label htmlFor="price" >
                                 Price
                             </label>
-                            <input type="text" defaultValue={ele?.price} onInput={(e)=>setData({...myData,price:+e.target.value})} id="price" {...register("price", { required: "Price is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" />
+                            <input type="text" value={myData?.price} onInput={(e)=>setData({...myData,price:+e.target.value})} id="price" {...register("price", { required: "Price is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" />
                             {errors.price?.message &&
                                 <p className="h-5 text-red-500 animate-bounce">{errors.price?.message}</p>
                             }
@@ -99,7 +102,7 @@ const FormProduct = ({ele}) => {
                             <label htmlFor="quantity" >
                                 Quantity
                             </label>
-                            <input type="text" defaultValue={ele?.quantity} onInput={(e)=>setData({...myData,quantity:+e.target.value})} id="quantity" {...register("quantity", { required: "Quantity is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" />
+                            <input type="text" value={myData?.quantity} onInput={(e)=>setData({...myData,quantity:+e.target.value})} id="quantity" {...register("quantity", { required: "Quantity is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none" />
                             {errors.quantity?.message &&
                                 <p className="h-5 text-red-500 animate-bounce">{errors.quantity?.message}</p>
                             }
@@ -108,7 +111,7 @@ const FormProduct = ({ele}) => {
                             <label htmlFor="category" >
                                 Category
                             </label>
-                            <select name="category" defaultValue={ele?.category} onInput={(e)=>setData({...myData,category:e.target.value})} id="category" {...register("category", { required: "Category is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none">
+                            <select name="category" value={myData?.category?._id} onInput={(e)=>setData({...myData,category:e.target.value})} id="category" {...register("category", { required: "Category is required" })} className="w-full h-10 px-2 border-2 border-gray-400 rounded-lg outline-none">
                                 {isLoading ? (
                                         <div className="flex justify-center">
                                             <span className="inline-block border-2 border-black rounded-full w-7 h-7 border-l-gray-500 animate-spin"></span>
@@ -125,7 +128,7 @@ const FormProduct = ({ele}) => {
                             <label htmlFor="des" >
                                 Description
                             </label>
-                            <textarea defaultValue={ele?.description} onInput={(e)=>setData({...myData,description:e.target.value})} id="des" {...register("description", { required: "Description is required" })} className="w-full h-16 py-1 px-2 border-2 border-gray-400 rounded-lg outline-none resize-none" />
+                            <textarea value={myData?.description} onInput={(e)=>setData({...myData,description:e.target.value})} id="des" {...register("description", { required: "Description is required" })} className="w-full h-16 py-1 px-2 border-2 border-gray-400 rounded-lg outline-none resize-none" />
                             {errors.description?.message &&
                                 <p className="h-5 text-red-500 animate-bounce">{errors.description?.message}</p>
                             }

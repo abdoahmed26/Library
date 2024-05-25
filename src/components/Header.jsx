@@ -41,7 +41,7 @@ function Header() {
               <Link to={"/store"}>Store</Link>
             </li>
             <li className="hover:underline underline-offset-4">
-              <Link to={"/about"}>About</Link>
+              <Link to={"/contact"}>Contact</Link>
             </li>
           </ul>
         </nav>
@@ -81,7 +81,7 @@ function Header() {
                 ) : (
                   <FaUser className="text-[20px] mx-auto" />
                 )}
-                <span className="text-[.7em]">{user.username.split(" " || "_")[0] || user.name.split(" " || "_")[0]}</span>
+                <span className="text-[.7em]">{user.username.split("_" || " ")[0] || user.name.split(" " || "_")[0]}</span>
                 <AccountSignOut appear={appear} />
               </Link>
             </>

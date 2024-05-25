@@ -15,7 +15,7 @@ export const addCart = (ele,myUrl,dispatch,setLoading) => {
         }
     ).then((res) => {
         dispatch(getCart());
-        alertSuccess()
+        alertSuccess("The book add to cart!")
         setLoading(false);
     }).catch((e) => {
         checkResponseStatus(e, myUrl);

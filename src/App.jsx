@@ -15,6 +15,7 @@ import Wishlist from "./pages/Wishlist";
 import ResetPassword from "./pages/ResetPassword";
 import Update from "./admin/Update";
 import Add from "./admin/Add";
+import Contact from "./components/Contact";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="wishlist" element={<Wishlist/>} />
           <Route path="AddProduct" element={<Add/>} />
           <Route path="UpdateProduct/:id" element={<Update />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
       </Routes>
       </div>

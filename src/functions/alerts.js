@@ -4,10 +4,10 @@ import { checkResponseStatus } from "./checkResponseStatus";
 import { getCart } from "../redux/CartSlice";
 import axios from "axios";
 
-export const alertSuccess = ()=>{
+export const alertSuccess = (text)=>{
     Swal.fire({
         title: "Successfully!",
-        text: "The book add to cart!",
+        text,
         icon: "success"
     });
 }
