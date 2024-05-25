@@ -2,33 +2,14 @@
 import { Link } from "react-router-dom";
 import verified from "../assets/images/verified.gif"
 import { useSelector } from "react-redux";
-import emailjs from '@emailjs/browser';
-import { useState } from "react";
+import { useEffect } from "react";
+import { sendEmail } from "../functions/sendEmail";
 
 export default function OrderDone() {
   const user = useSelector((state) => state.user);
-  const [checkSend,setCheck] = useState(true)
-  const sendEmail = (data)=>{
-      console.log(data);
-      const serviceId = "service_8c8ja39";
-      const templateId = "template_9ao5ect";
-      const publicKey = "oo_nwc5PfiwLC9n_5";
-      emailjs.send(serviceId, templateId, data, publicKey)
-      .then(res=>{
-        console.log(res)
-      }).catch(error=>{
-        console.log(error);
-      });
-  }
-  if(user.email && checkSend){
-    const data = {
-      name : user.name || user.username,
-      team : "El-Aaref Team",
-      email : user.email,
-    }
-    sendEmail(data);
-    setCheck(false)
-  }
+  useEffect(()=>{
+    sendEmail(user)
+  },[user?.email])
   return (
     <div className='flex items-center justify-center py-10'>
       <div className="container">
