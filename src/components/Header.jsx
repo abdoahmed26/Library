@@ -81,7 +81,7 @@ function Header() {
                 ) : (
                   <FaUser className="text-[20px] mx-auto" />
                 )}
-                <span className="text-[.7em]">{user.username.split("_" || " ")[0] || user.name.split(" " || "_")[0]}</span>
+                <span className="text-[.7em]">{user.username || user.name}</span>
                 <AccountSignOut appear={appear} />
               </Link>
             </>
